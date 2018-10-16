@@ -42,7 +42,7 @@ In addition, in this example you can also see that the optional attribute `divid
 
 > #### Referenced resource files
 > Just in case they are of any help, these are the resource files referenced in the code above:
-
+> 
 > ```xml
 > <!-- layout/list_item_layout.xml -->
 > <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -62,7 +62,7 @@ In addition, in this example you can also see that the optional attribute `divid
 >         android:src="@drawable/ic_drag"/>
 > </LinearLayout>
 > ```
-
+> 
 > ```xml
 > <!-- drawable/list_divider.xml -->
 > <shape xmlns:android="http://schemas.android.com/apk/res/android"
@@ -124,14 +124,14 @@ mList.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH
 
 > ##### Showing dividers on grid lists
 > Take into account that if *and only if* you want to show dividers in a list with a grid orientation, you also need to set one of these two properties:
-
+> 
 > ```kotlin
 > // Set this property if your grid can be scrolled vertically
 > mList.numOfColumnsPerRowInGridList = <numberOfColumns>
 > ```
-
+> 
 > Or:
-
+> 
 > ```kotlin
 > // Set this property if your grid can be scrolled horizontally
 > mList.numOfRowsPerColumnInGridList = <numberOfRows>
