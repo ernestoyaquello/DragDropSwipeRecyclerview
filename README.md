@@ -36,7 +36,7 @@ Place the `DragDropSwipeRecyclerview` inside your layout using XML:
 </FrameLayout>
 ```
 
-As you can see in the code above, **we specify the list item layout through the attribute `item_layout`**. This way, the library will take care of inflating the item layout automatically, so you won't have to do it manually in the adapter.
+As you can see in the code above, **we specify the list item layout through the attribute `item_layout`**. This way, the library will take care of inflating the item layout automatically, so you won't have to do it manually in the adapter.
 
 In addition, in this example you can also see that the optional attribute `divider` is being used to specify the drawable that will be displayed between list items (for more information about available attributes, see [**Customization**](#customization)).
 
