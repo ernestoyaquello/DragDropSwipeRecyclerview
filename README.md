@@ -12,7 +12,7 @@ Add the library to your project via Gradle:
 
 ```
 dependencies {
-    compile 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.0.1'
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.0.1'
 }
 ```
 
@@ -85,7 +85,7 @@ class MyAdapter(dataSet: List<String> = emptyList())
         val dragIcon: ImageView = itemView.findViewById(R.id.drag_icon)
     }
 
-    override fun getViewHolder(itemView: View) = ViewHolder(itemLayout)
+    override fun getViewHolder(itemView: View) = MyAdapter.ViewHolder(itemLayout)
 
     override fun onBindViewHolder(item: String, viewHolder: MyAdapter.ViewHolder, position: Int) {
         // Here we update the contents of the view holder's views to reflect the item's data
@@ -128,10 +128,10 @@ Take into account that if *and only if* you want to show dividers in a list with
 
 ```kotlin
 // Set this property if your grid can be scrolled vertically
-mList.numOfColumnsPerRowInGridList = numberOfColumns
+mList.numOfColumnsPerRowInGridList = <numberOfColumns>
 
 // Set this property if your grid can be scrolled horizontally
-mList.numOfRowsPerColumnInGridList = numberOfRows
+mList.numOfRowsPerColumnInGridList = <numberOfRows>
 ```
 
 #### Set event listeners
