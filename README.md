@@ -40,37 +40,37 @@ As you can see in the code above, **we specify the list item layout through the 
 
 In addition, in this example you can also see that the optional attribute `divider` is being used to specify the drawable that will be displayed between list items (for more information about available attributes, see [**Customization**](#customization)).
 
-#### Referenced resource files
-Just in case they are of any help, these are the resource files referenced in the code above:
+> #### Referenced resource files
+> Just in case they are of any help, these are the resource files referenced in the code above:
 
-```xml
-<!-- layout/list_item_layout.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center">
-    <TextView
-        android:id="@+id/item_text"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"/>
-    <ImageView
-        android:id="@+id/drag_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_drag"/>
-</LinearLayout>
-```
+> ```xml
+> <!-- layout/list_item_layout.xml -->
+> <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+>     android:layout_width="match_parent"
+>     android:layout_height="wrap_content"
+>     android:orientation="horizontal"
+>     android:gravity="center">
+>     <TextView
+>         android:id="@+id/item_text"
+>         android:layout_width="0dp"
+>         android:layout_weight="1"
+>         android:layout_height="wrap_content"/>
+>     <ImageView
+>         android:id="@+id/drag_icon"
+>         android:layout_width="wrap_content"
+>         android:layout_height="match_parent"
+>         android:src="@drawable/ic_drag"/>
+> </LinearLayout>
+> ```
 
-```xml
-<!-- drawable/list_divider.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <size android:height="1dp" />
-    <solid android:color="#e1e1e1" />
-</shape>
-```
+> ```xml
+> <!-- drawable/list_divider.xml -->
+> <shape xmlns:android="http://schemas.android.com/apk/res/android"
+>     android:shape="rectangle">
+>     <size android:height="1dp" />
+>     <solid android:color="#e1e1e1" />
+> </shape>
+> ```
 
 ### 3. Create the adapter
 
@@ -122,17 +122,20 @@ Then, specify the list orientation. For example:
 mList.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
 ```
 
-##### * About grid orientation and dividers
+> ##### Showing dividers on grid lists
+> Take into account that if *and only if* you want to show dividers in a list with a grid orientation, you also need to set one of these two properties:
 
-Take into account that if *and only if* you want to show dividers in a list with a grid orientation, you also need to set one of these two properties:
+> ```kotlin
+> // Set this property if your grid can be scrolled vertically
+> mList.numOfColumnsPerRowInGridList = <numberOfColumns>
+> ```
 
-```kotlin
-// Set this property if your grid can be scrolled vertically
-mList.numOfColumnsPerRowInGridList = <numberOfColumns>
+> Or:
 
-// Set this property if your grid can be scrolled horizontally
-mList.numOfRowsPerColumnInGridList = <numberOfRows>
-```
+> ```kotlin
+> // Set this property if your grid can be scrolled horizontally
+> mList.numOfRowsPerColumnInGridList = <numberOfRows>
+> ```
 
 #### Set event listeners
 Finally, create event listeners for the events you want to handle. For example, these are the listeners for actions of *swiping*, *dragging & dropping* and *scrolling*:
