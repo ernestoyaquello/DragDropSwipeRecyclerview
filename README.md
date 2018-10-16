@@ -12,7 +12,7 @@ Add the library to your project via Gradle:
 
 ```
 dependencies {
-    compile 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.9.0'
+    compile 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.0.1'
 }
 ```
 
