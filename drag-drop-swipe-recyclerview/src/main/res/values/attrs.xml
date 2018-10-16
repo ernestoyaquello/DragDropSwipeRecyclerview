@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DragDropSwipeRecyclerView">
+        <attr name="item_layout" format="reference" />
+        <attr name="divider" format="reference" />
+        <attr name="behind_swiped_item_icon" format="reference" />
+        <attr name="behind_swiped_item_icon_secondary" format="reference" />
+        <attr name="behind_swiped_item_icon_margin" format="dimension" />
+        <attr name="behind_swiped_item_icon_centered" format="boolean" />
+        <attr name="behind_swiped_item_bg_color" format="color" />
+        <attr name="behind_swiped_item_bg_color_secondary" format="color" />
+        <attr name="behind_swiped_item_custom_layout" format="reference" />
+        <attr name="behind_swiped_item_custom_layout_secondary" format="reference" />
+        <attr name="swiped_item_opacity_fades_on_swiping" format="boolean" />
+    </declare-styleable>
+</resources>

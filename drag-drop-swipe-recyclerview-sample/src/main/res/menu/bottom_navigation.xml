@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_vertical_list"
+        android:icon="@drawable/ic_list_vertical"
+        android:title="@string/title_vertical_list"/>
+
+    <item
+        android:id="@+id/navigation_horizontal_list"
+        android:icon="@drawable/ic_list_horizontal"
+        android:title="@string/title_horizontal_list" />
+
+    <item
+        android:id="@+id/navigation_grid_list"
+        android:icon="@drawable/ic_list_grid"
+        android:title="@string/title_grid_list" />
+
+</menu>

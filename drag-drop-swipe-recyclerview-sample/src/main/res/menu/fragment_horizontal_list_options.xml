@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/change_item_layout"
+        android:title="@string/action_use_card_view_item_layout"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/change_dragging_restrictions"
+        android:title="@string/action_restrict_dragging"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/enable_disable_drawing_behind"
+        android:title="@string/action_not_draw_behind_swiped_items"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/enable_disable_fade_on_swiping"
+        android:title="@string/action_reduce_alpha_on_swiping"
+        app:showAsAction="never"/>
+
+</menu>

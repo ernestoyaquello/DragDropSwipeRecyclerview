@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Drag-Drop-Swipe-RecyclerView Sample</string>
+    <string name="title_vertical_list">Vertical</string>
+    <string name="title_horizontal_list">Horizontal</string>
+    <string name="title_grid_list">Grid</string>
+    <string name="priceFormat">$%1$.2f</string>
+    <string name="undoCaps">UNDO</string>
+    <string name="itemRemovedMessage">%1$s was removed.</string>
+    <string name="itemArchivedMessage">%1$s was archived.</string>
+    <string name="seeLogMessagesTitle">See Log Messages (%1$d)</string>
+    <string name="empty_log">The log is empty</string>
+    <string name="action_use_default_item_layout">Use default item layout</string>
+    <string name="action_use_card_view_item_layout">Use card view item layout</string>
+    <string name="action_draw_behind_swiped_items">Draw behind swiped items</string>
+    <string name="action_not_draw_behind_swiped_items">Don\'t draw behind swiped items</string>
+    <string name="action_reduce_alpha_on_swiping">Reduce alpha on swiping</string>
+    <string name="action_not_reduce_alpha_on_swiping">Don\'t reduce alpha on swiping</string>
+    <string name="action_restrict_dragging">Restrict dragging</string>
+    <string name="action_not_restrict_dragging">Don\'t restrict dragging</string>
+    <string name="generic_delete">Delete</string>
+    <string name="generic_archive">Archive</string>
+</resources>

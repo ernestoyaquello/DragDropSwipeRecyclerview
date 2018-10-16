@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/listItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:gravity="center"
+    android:layout_margin="@dimen/spacing_small"
+    android:padding="0dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp"
+    app:contentPadding="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="0dp"
+        android:padding="0dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:padding="0dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ice_cream_photo"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ice_cream_photo"/>
+
+            <View
+                android:id="@+id/ice_cream_photo_filter"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                tools:background="#80251099"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/ice_cream_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:ellipsize="end"
+            android:paddingLeft="@dimen/spacing_smaller_x2"
+            android:paddingRight="@dimen/spacing_smaller_x2"
+            android:paddingStart="@dimen/spacing_smaller_x2"
+            android:paddingEnd="@dimen/spacing_smaller_x2"
+            android:paddingTop="@dimen/spacing_small"
+            tools:text="Dark Chocolate Ice Cream"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/listItemBackground"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="0dp">
+
+            <TextView
+                android:id="@+id/ice_cream_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="13sp"
+                android:paddingStart="@dimen/spacing_smaller_x2"
+                android:paddingBottom="@dimen/spacing_small"
+                tools:text="$2.85"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/drag_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:foregroundGravity="right"
+                android:paddingStart="@dimen/spacing_small"
+                android:paddingEnd="@dimen/spacing_micro"
+                android:paddingBottom="@dimen/spacing_small"
+                android:src="@drawable/ic_drag"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
