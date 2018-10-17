@@ -2,9 +2,9 @@
 Android library written in Kotlin that extends `RecyclerView` to include extra features, such as support for gestures like *drag & drop* and *swipe*.
 
 ## Demo
-![Drag & drop and swipe recycler view; demo with vertical list](https://raw.githubusercontent.com/ernestoyaquello/drag-drop-swipe-recyclerview/master/readme/drag-drop-swipe-list-demo.gif)
+![Drag & drop and swipe recycler view; demo with vertical list](https://raw.githubusercontent.com/ernestoyaquello/drag-drop-swipe-recyclerview/develop/readme/drag-drop-swipe-list-demo.gif)
 
-![Drag & drop and swipe recycler view; demo with grid list](https://raw.githubusercontent.com/ernestoyaquello/drag-drop-swipe-recyclerview/master/readme/drag-drop-swipe-list-demo2.gif)
+![Drag & drop and swipe recycler view; demo with grid list](https://raw.githubusercontent.com/ernestoyaquello/drag-drop-swipe-recyclerview/develop/readme/drag-drop-swipe-list-demo2.gif)
 
 ## How to use it
 ### 1. Reference the library
