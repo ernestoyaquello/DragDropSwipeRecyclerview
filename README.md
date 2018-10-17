@@ -116,7 +116,7 @@ class MyAdapter(dataSet: List<String> = emptyList())
 }
 ```
 
-This is just a basic implementation, but there are more methods in the adapter that you can override to customise the list and its behaviour (see [**Customization**](#customization)).
+This is just a basic implementation, but there are more methods in the adapter that you can override to customize the list and its behaviour (see [**Customization**](#customization)).
 
 ### 4. Setup the list
 Finally, you should setup the list to make it work and take advantage of its features.
@@ -335,7 +335,7 @@ The custom layout to be displayed behind an item that is being swiped in the sec
 
 ### Adapter customization
 #### Customizing item behaviour
-Some of the adapter methods can be extended to customise the behaviour of the list items:
+Some of the adapter methods can be extended to customize the behaviour of the list items:
 
 ---
 
