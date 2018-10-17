@@ -310,9 +310,7 @@ The custom layout to be displayed behind an item that is being swiped in the sec
 > ```
 
 ### Adapter customization
-You can customize the adapter by extending some of its methods.
-
-### Customizing item behaviour
+#### Customizing item behaviour
 Some of the adapter methods can be extended to customise the behaviour of the list items:
 
 ##### `getViewToTouchToStartDraggingItem(item: T, viewHolder: U, position: Int): View?`
@@ -360,8 +358,8 @@ Called automatically to know if the specified item can be swiped.
 >
 > ***`returns`*** True if the item can be swiped; false otherwise. True by default.
 
-### Event Handling within the adapter
-Some of the adapter methods are callbacks that can be used to customize the items after certain events, such as `DragStarted`, `SwipeStarted`, `IsDragging`, `IsSwiping`, `DragFinished`, `SwipeFinished`, etcetera. For example, you might want to update some of the item's views to change its appearance whenever the item is being dragged or swiped.
+#### Event Handling within the adapter
+Some of the adapter methods are callbacks that can be extended to customize the items after certain events, such as `DragStarted`, `SwipeStarted`, `IsDragging`, `IsSwiping`, `DragFinished`, `SwipeFinished`, etcetera. For example, you might want to update some of the item's views to change its appearance whenever the item is being dragged or swiped.
 
 On this regard, please note that these methods are intended for item customization only. **If you just want to be aware of the occurrence of basic list events (e.g., `onItemDragged`, `onItemDropped`, `onItemSwiped`), all you need to do is to subscribe to the listeners of the `DragDropSwipeRecyclerView`** (see above the section `How to use it`).
 
