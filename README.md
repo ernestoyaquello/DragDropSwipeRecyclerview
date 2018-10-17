@@ -198,7 +198,8 @@ There are several `XML` attributes that you can set in the `DragDropSwipeRecycle
 
 ![Drag & drop and swipe recycler view; available XML attributes](https://raw.githubusercontent.com/ernestoyaquello/drag-drop-swipe-recyclerview/develop/readme/drag-drop-swipe-item-customization.jpg)
 
-#### Customizing the list items
+---
+
 ##### `item_layout`
 The layout that will be used to populate each list item.
 
@@ -206,6 +207,8 @@ The layout that will be used to populate each list item.
 > ```kotlin
 > mList.itemLayoutId = R.layout.your_layout
 > ```
+
+---
 
 ##### `divider`
 The drawable that will be displayed as a divider between list items. If set to null, no divider will be drawn. Null by default.
@@ -218,7 +221,8 @@ Please note that, for vertical lists, the divider drawable's height must be defi
 > mList.dividerDrawableId = R.drawable.your_divider
 > ```
 
-#### Customizing the swipe action using attributes
+---
+
 ##### `behind_swiped_item_icon`
 The drawable of the icon to display behind an item that is being swiped in the default direction (i.e., left for horizontal swiping and down for vertical swiping). If set to null, no icon will be displayed behind swiped items. Null by default.
 
@@ -230,6 +234,8 @@ Please note that if there is a secondary icon defined (i.e., if `behind_swiped_i
 > mList.behindSwipedItemIconDrawableId = R.drawable.your_icon
 > ```
 
+---
+
 ##### `behind_swiped_item_icon_secondary`
 The drawable of the icon to display behind an item that is being swiped in the secondary direction (i.e., right for horizontal swiping and up for vertical swiping). If set to null, the main icon -if defined- will be the only one to be displayed in all swipe directions. Null by default.
 
@@ -238,6 +244,8 @@ The drawable of the icon to display behind an item that is being swiped in the s
 > ```kotlin
 > mList.behindSwipedItemIconSecondaryDrawableId = R.drawable.your_icon
 > ```
+
+---
 
 ##### `behind_swiped_item_icon_margin`
 The distance between the icon displayed behind an item that is being swiped and the side of the item from which the swiping started. 0 if not specified; ignored if `behind_swiped_item_icon_centered` is true.
@@ -248,6 +256,8 @@ The distance between the icon displayed behind an item that is being swiped and 
 > mList.behindSwipedItemIconMargin = <margin_value_as_float>
 > ```
 
+---
+
 ##### `behind_swiped_item_icon_centered`
 Determines whether the icon displayed behind an item that is being swiped should be centered. If true, the icon will be centered; if false, the icon will be displayed near the side from which the swiping started. False by default.
 
@@ -256,6 +266,8 @@ Determines whether the icon displayed behind an item that is being swiped should
 > ```kotlin
 > mList.behindSwipedItemCenterIcon = true
 > ```
+
+---
 
 ##### `behind_swiped_item_bg_color`
 The background color to be displayed behind an item that is being swiped in the default direction (i.e., left for horizontal swiping and down for vertical swiping). If set to null, no color will be displayed behind items that are being swiped. Null by default.
@@ -268,6 +280,8 @@ Please note that if there is a secondary color defined (i.e., if `behind_swiped_
 > mList.behindSwipedItemBackgroundColor = <color_value_as_integer>
 > ```
 
+---
+
 ##### `behind_swiped_item_bg_color_secondary`
 The background color to be displayed behind an item that is being swiped in the secondary direction (i.e., right for horizontal swiping and up for vertical swiping). If set to null, the main background color -if defined- will be the only one to be displayed in all swipe directions. Null by default.
 
@@ -276,6 +290,8 @@ The background color to be displayed behind an item that is being swiped in the 
 > ```kotlin
 > mList.behindSwipedItemBackgroundSecondaryColor = <color_value_as_integer>
 > ```
+
+---
 
 ##### `swiped_item_opacity_fades_on_swiping`
 Determines whether the item that is being swiped should appear more transparent the further it gets from its original position. False by default.
@@ -286,8 +302,12 @@ Determines whether the item that is being swiped should appear more transparent 
 > mList.reduceItemAlphaOnSwiping = true
 > ```
 
+---
+
 #### Customizing the swipe action using custom layouts
 In case you want to create your own layouts to display behind the swiped items, you can use these two attributes:
+
+---
 
 ##### `behind_swiped_item_custom_layout`
 The custom layout to be displayed behind an item that is being swiped. If it is set to null, no custom layout will be displayed behind swiped items. Null by default.
@@ -300,6 +320,8 @@ Please note that if there is a secondary layout defined (i.e., if `behind_swiped
 > mList.behindSwipedItemLayoutId = R.layout.your_custom_layout
 > ```
 
+---
+
 ##### `behind_swiped_item_custom_layout_secondary`
 The custom layout to be displayed behind an item that is being swiped in the secondary direction (i.e., right for horizontal swiping and up for vertical swiping). If set to null, the main custom layout -if defined- will be the only one to be displayed in all swipe directions. Null by default.
 
@@ -309,9 +331,13 @@ The custom layout to be displayed behind an item that is being swiped in the sec
 > mList.behindSwipedItemSecondaryLayoutId = R.layout.your_custom_layout
 > ```
 
+---
+
 ### Adapter customization
 #### Customizing item behaviour
 Some of the adapter methods can be extended to customise the behaviour of the list items:
+
+---
 
 ##### `getViewToTouchToStartDraggingItem(item: T, viewHolder: U, position: Int): View?`
 Called automatically to get the item view on which the user has to touch to drag the item. If it returns null, the main view of the item will be used for dragging.
@@ -324,6 +350,8 @@ Called automatically to get the item view on which the user has to touch to drag
 >
 > ***`returns`*** The item view on which the user has to touch to drag the item, or null if the view of the item that will be used for dragging is the main one.
 
+---
+
 ##### `canBeDragged(item: T, viewHolder: U, position: Int): Boolean`
 Called automatically to know if the specified item can be dragged.
 
@@ -334,6 +362,8 @@ Called automatically to know if the specified item can be dragged.
 > **`position`** The position of the item within the adapter's data set.
 >
 > ***`returns`*** True if the item can be dragged; false otherwise. True by default.
+
+---
 
 ##### `canBeDroppedOver(item: T, viewHolder: U, position: Int): Boolean`
 Called automatically to know if the specified item accepts being exchanged by another one
@@ -347,6 +377,8 @@ being dropped over it.
 >
 > ***`returns`*** True if the item accepts to be exchanged with another one being dragged over it; false otherwise. True by default.
 
+---
+
 ##### `canBeSwiped(item: T, viewHolder: U, position: Int): Boolean`
 Called automatically to know if the specified item can be swiped.
 
@@ -358,10 +390,14 @@ Called automatically to know if the specified item can be swiped.
 >
 > ***`returns`*** True if the item can be swiped; false otherwise. True by default.
 
+---
+
 #### Event Handling within the adapter
 Some of the adapter methods are callbacks that can be extended to customize the items after certain events, such as `DragStarted`, `SwipeStarted`, `IsDragging`, `IsSwiping`, `DragFinished`, `SwipeFinished`, etcetera. For example, you might want to update some of the item's views to change its appearance whenever the item is being dragged or swiped.
 
 On this regard, please note that these methods are intended for item customization only. **If you just want to be aware of the occurrence of basic list events (e.g., `onItemDragged`, `onItemDropped`, `onItemSwiped`), all you need to do is to subscribe to the listeners of the `DragDropSwipeRecyclerView`** (see above the section `How to use it`).
+
+---
 
 ##### `onDragStarted(item: T, viewHolder: U)`
 Called when the dragging starts.
@@ -370,12 +406,16 @@ Called when the dragging starts.
 >
 > **`viewHolder`** The view holder for which the dragging action has started.
 
+---
+
 ##### `onSwipeStarted(item: T, viewHolder: U)`
 Called when the swiping starts.
 
 > **`item`** The item as read from the corresponding position of the data set.
 >
 > **`viewHolder`** The view holder for which the swiping action has started.
+
+---
 
 ##### `onIsDragging(item: T, viewHolder: U, offsetX: Int, offsetY: Int, canvasUnder: Canvas?, canvasOver: Canvas?, isUserControlled: Boolean)`
 Called when the dragging action (or animation) is occurring.
@@ -394,6 +434,8 @@ Called when the dragging action (or animation) is occurring.
 >
 > **`isUserControlled`** True if the item is still being controlled manually by the user; false if it is just being animated automatically by the system after the user has stopped touching it.
 
+---
+
 ##### `onIsSwiping(item: T?, viewHolder: U, offsetX: Int, offsetY: Int, canvasUnder: Canvas?, canvasOver: Canvas?, isUserControlled: Boolean)`
 Called when the swiping action (or animation) is occurring.
 
@@ -411,6 +453,8 @@ Called when the swiping action (or animation) is occurring.
 >
 > **`isUserControlled`** True if the item is still being controlled manually by the user; false if it is just being animated automatically by the system (which is usually the case when the system is finishing the swiping animation in order to move the item to its final position right after the user has already stopped touching it).
 
+---
+
 ##### `onDragFinished(item: T, viewHolder: U)`
 Called when the dragging finishes (i.e., when the item is dropped).
 
@@ -418,11 +462,15 @@ Called when the dragging finishes (i.e., when the item is dropped).
 >
 > **`viewHolder`** The view holder for which the dragging action has finished.
 
+---
+
 ##### `onSwipeAnimationFinished(viewHolder: U)`
 Called when the swiping animation executed by the system to complete the swiping has finished.
 At the time this method gets called, the item has already been removed from the data set.
 
 > **`viewHolder`** The view holder for which the swiping animation has finished.
+
+---
 
 ## Complete Example
 Check out the **Sample App** that is included in this repository: it has vertical lists, horizontal lists and grid lists, and it makes use of most of the library's features.
