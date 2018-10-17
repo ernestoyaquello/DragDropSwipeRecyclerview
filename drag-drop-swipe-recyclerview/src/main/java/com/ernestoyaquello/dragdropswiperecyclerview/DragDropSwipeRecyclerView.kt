@@ -331,7 +331,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
      * it gets from its original position.
      * False by default.
      *
-     * Can be set up in XML using the attribute "swiped_items_opacity_fades_on_swiping".
+     * Can be set up in XML using the attribute "swiped_item_opacity_fades_on_swiping".
      */
     var reduceItemAlphaOnSwiping: Boolean = false
 
