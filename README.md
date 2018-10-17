@@ -42,6 +42,8 @@ As you can see in the code above, **we specify the list item layout through the 
 
 In addition, in this example you can also see that the optional attribute `divider` is being used to specify the drawable that will be displayed between list items (for more information about available attributes, see [**Customization**](#customization)).
 
+---
+
 > #### Referenced resource files
 > Just in case they are of any help, these are the example resource files referenced in the code above:
 > 
@@ -140,6 +142,8 @@ Then, specify the list orientation. For example:
 mList.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
 ```
 
+---
+
 > ##### Using grid orientation with dividers
 > Take into account that if *and only if* you want to show dividers in a list with a grid orientation, you also need to set one of these two properties:
 > 
@@ -207,6 +211,8 @@ The layout that will be used to populate each list item.
 > mList.itemLayoutId = R.layout.your_layout
 > ```
 
+---
+
 ##### `divider`
 The drawable that will be displayed as a divider between list items. If set to null, no divider will be drawn. Null by default.
 
@@ -230,6 +236,8 @@ Please note that if there is a secondary icon defined (i.e., if `behind_swiped_i
 > mList.behindSwipedItemIconDrawableId = R.drawable.your_icon
 > ```
 
+---
+
 ##### `behind_swiped_item_icon_secondary`
 The drawable of the icon to display behind an item that is being swiped in the secondary direction (i.e., right for horizontal swiping and up for vertical swiping). If set to null, the main icon -if defined- will be the only one to be displayed in all swipe directions. Null by default.
 
@@ -238,6 +246,8 @@ The drawable of the icon to display behind an item that is being swiped in the s
 > ```kotlin
 > mList.behindSwipedItemIconSecondaryDrawableId = R.drawable.your_icon
 > ```
+
+---
 
 ##### `behind_swiped_item_icon_margin`
 The distance between the icon displayed behind an item that is being swiped and the side of the item from which the swiping started. 0 if not specified; ignored if `behind_swiped_item_icon_centered` is true.
@@ -248,6 +258,8 @@ The distance between the icon displayed behind an item that is being swiped and 
 > mList.behindSwipedItemIconMargin = <margin_value_as_float>
 > ```
 
+---
+
 ##### `behind_swiped_item_icon_centered`
 Determines whether the icon displayed behind an item that is being swiped should be centered. If true, the icon will be centered; if false, the icon will be displayed near the side from which the swiping started. False by default.
 
@@ -256,6 +268,8 @@ Determines whether the icon displayed behind an item that is being swiped should
 > ```kotlin
 > mList.behindSwipedItemCenterIcon = true
 > ```
+
+---
 
 ##### `behind_swiped_item_bg_color`
 The background color to be displayed behind an item that is being swiped in the default direction (i.e., left for horizontal swiping and down for vertical swiping). If set to null, no color will be displayed behind items that are being swiped. Null by default.
@@ -268,6 +282,8 @@ Please note that if there is a secondary color defined (i.e., if `behind_swiped_
 > mList.behindSwipedItemBackgroundColor = <color_value_as_integer>
 > ```
 
+---
+
 ##### `behind_swiped_item_bg_color_secondary`
 The background color to be displayed behind an item that is being swiped in the secondary direction (i.e., right for horizontal swiping and up for vertical swiping). If set to null, the main background color -if defined- will be the only one to be displayed in all swipe directions. Null by default.
 
@@ -276,6 +292,8 @@ The background color to be displayed behind an item that is being swiped in the 
 > ```kotlin
 > mList.behindSwipedItemBackgroundSecondaryColor = <color_value_as_integer>
 > ```
+
+---
 
 ##### `swiped_item_opacity_fades_on_swiping`
 Determines whether the item that is being swiped should appear more transparent the further it gets from its original position. False by default.
@@ -299,6 +317,8 @@ Please note that if there is a secondary layout defined (i.e., if `behind_swiped
 > ```kotlin
 > mList.behindSwipedItemLayoutId = R.layout.your_custom_layout
 > ```
+
+---
 
 ##### `behind_swiped_item_custom_layout_secondary`
 The custom layout to be displayed behind an item that is being swiped in the secondary direction (i.e., right for horizontal swiping and up for vertical swiping). If set to null, the main custom layout -if defined- will be the only one to be displayed in all swipe directions. Null by default.
@@ -324,6 +344,8 @@ Called automatically to get the item view on which the user has to touch to drag
 >
 > ***`returns`*** The item view on which the user has to touch to drag the item, or null if the view of the item that will be used for dragging is the main one.
 
+---
+
 ##### `canBeDragged(item: T, viewHolder: U, position: Int): Boolean`
 Called automatically to know if the specified item can be dragged.
 
@@ -334,6 +356,8 @@ Called automatically to know if the specified item can be dragged.
 > **`position`** The position of the item within the adapter's data set.
 >
 > ***`returns`*** True if the item can be dragged; false otherwise. True by default.
+
+---
 
 ##### `canBeDroppedOver(item: T, viewHolder: U, position: Int): Boolean`
 Called automatically to know if the specified item accepts being exchanged by another one
@@ -346,6 +370,8 @@ being dropped over it.
 > **`position`** The position of the item within the adapter's data set.
 >
 > ***`returns`*** True if the item accepts to be exchanged with another one being dragged over it; false otherwise. True by default.
+
+---
 
 ##### `canBeSwiped(item: T, viewHolder: U, position: Int): Boolean`
 Called automatically to know if the specified item can be swiped.
@@ -370,12 +396,16 @@ Called when the dragging starts.
 >
 > **`viewHolder`** The view holder for which the dragging action has started.
 
+---
+
 ##### `onSwipeStarted(item: T, viewHolder: U)`
 Called when the swiping starts.
 
 > **`item`** The item as read from the corresponding position of the data set.
 >
 > **`viewHolder`** The view holder for which the swiping action has started.
+
+---
 
 ##### `onIsDragging(item: T, viewHolder: U, offsetX: Int, offsetY: Int, canvasUnder: Canvas?, canvasOver: Canvas?, isUserControlled: Boolean)`
 Called when the dragging action (or animation) is occurring.
@@ -394,6 +424,8 @@ Called when the dragging action (or animation) is occurring.
 >
 > **`isUserControlled`** True if the item is still being controlled manually by the user; false if it is just being animated automatically by the system after the user has stopped touching it.
 
+---
+
 ##### `onIsSwiping(item: T?, viewHolder: U, offsetX: Int, offsetY: Int, canvasUnder: Canvas?, canvasOver: Canvas?, isUserControlled: Boolean)`
 Called when the swiping action (or animation) is occurring.
 
@@ -411,12 +443,16 @@ Called when the swiping action (or animation) is occurring.
 >
 > **`isUserControlled`** True if the item is still being controlled manually by the user; false if it is just being animated automatically by the system (which is usually the case when the system is finishing the swiping animation in order to move the item to its final position right after the user has already stopped touching it).
 
+---
+
 ##### `onDragFinished(item: T, viewHolder: U)`
 Called when the dragging finishes (i.e., when the item is dropped).
 
 > **`item`** The item as read from the corresponding position of the data set.
 >
 > **`viewHolder`** The view holder for which the dragging action has finished.
+
+---
 
 ##### `onSwipeAnimationFinished(viewHolder: U)`
 Called when the swiping animation executed by the system to complete the swiping has finished.
