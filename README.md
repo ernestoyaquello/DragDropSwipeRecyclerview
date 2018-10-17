@@ -42,8 +42,6 @@ As you can see in the code above, **we specify the list item layout through the 
 
 In addition, in this example you can also see that the optional attribute `divider` is being used to specify the drawable that will be displayed between list items (for more information about available attributes, see [**Customization**](#customization)).
 
----
-
 > #### Referenced resource files
 > Just in case they are of any help, these are the example resource files referenced in the code above:
 > 
@@ -142,8 +140,6 @@ Then, specify the list orientation. For example:
 mList.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
 ```
 
----
-
 > ##### Using grid orientation with dividers
 > Take into account that if *and only if* you want to show dividers in a list with a grid orientation, you also need to set one of these two properties:
 > 
@@ -202,7 +198,8 @@ There are several `XML` attributes that you can set in the `DragDropSwipeRecycle
 
 ![Drag & drop and swipe recycler view; available XML attributes](https://raw.githubusercontent.com/ernestoyaquello/drag-drop-swipe-recyclerview/develop/readme/drag-drop-swipe-item-customization.jpg)
 
-#### Customizing the list items
+---
+
 ##### `item_layout`
 The layout that will be used to populate each list item.
 
@@ -224,7 +221,8 @@ Please note that, for vertical lists, the divider drawable's height must be defi
 > mList.dividerDrawableId = R.drawable.your_divider
 > ```
 
-#### Customizing the swipe action using attributes
+---
+
 ##### `behind_swiped_item_icon`
 The drawable of the icon to display behind an item that is being swiped in the default direction (i.e., left for horizontal swiping and down for vertical swiping). If set to null, no icon will be displayed behind swiped items. Null by default.
 
@@ -304,8 +302,12 @@ Determines whether the item that is being swiped should appear more transparent 
 > mList.reduceItemAlphaOnSwiping = true
 > ```
 
+---
+
 #### Customizing the swipe action using custom layouts
 In case you want to create your own layouts to display behind the swiped items, you can use these two attributes:
+
+---
 
 ##### `behind_swiped_item_custom_layout`
 The custom layout to be displayed behind an item that is being swiped. If it is set to null, no custom layout will be displayed behind swiped items. Null by default.
@@ -329,9 +331,13 @@ The custom layout to be displayed behind an item that is being swiped in the sec
 > mList.behindSwipedItemSecondaryLayoutId = R.layout.your_custom_layout
 > ```
 
+---
+
 ### Adapter customization
 #### Customizing item behaviour
 Some of the adapter methods can be extended to customise the behaviour of the list items:
+
+---
 
 ##### `getViewToTouchToStartDraggingItem(item: T, viewHolder: U, position: Int): View?`
 Called automatically to get the item view on which the user has to touch to drag the item. If it returns null, the main view of the item will be used for dragging.
@@ -384,10 +390,14 @@ Called automatically to know if the specified item can be swiped.
 >
 > ***`returns`*** True if the item can be swiped; false otherwise. True by default.
 
+---
+
 #### Event Handling within the adapter
 Some of the adapter methods are callbacks that can be extended to customize the items after certain events, such as `DragStarted`, `SwipeStarted`, `IsDragging`, `IsSwiping`, `DragFinished`, `SwipeFinished`, etcetera. For example, you might want to update some of the item's views to change its appearance whenever the item is being dragged or swiped.
 
 On this regard, please note that these methods are intended for item customization only. **If you just want to be aware of the occurrence of basic list events (e.g., `onItemDragged`, `onItemDropped`, `onItemSwiped`), all you need to do is to subscribe to the listeners of the `DragDropSwipeRecyclerView`** (see above the section `How to use it`).
+
+---
 
 ##### `onDragStarted(item: T, viewHolder: U)`
 Called when the dragging starts.
@@ -459,6 +469,8 @@ Called when the swiping animation executed by the system to complete the swiping
 At the time this method gets called, the item has already been removed from the data set.
 
 > **`viewHolder`** The view holder for which the swiping animation has finished.
+
+---
 
 ## Complete Example
 Check out the **Sample App** that is included in this repository: it has vertical lists, horizontal lists and grid lists, and it makes use of most of the library's features.
