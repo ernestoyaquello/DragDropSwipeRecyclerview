@@ -212,7 +212,9 @@ Please note that, for vertical lists, the divider drawable's height must be defi
 
 > It can also be set in Kotlin:
 > 
-> ```mList.dividerDrawableId = R.drawable.your_divider```
+> ```kotlin
+> mList.dividerDrawableId = R.drawable.your_divider
+> ```
 
 #### Customizing The Swipe Action
 ##### ```behind_swiped_item_icon```
@@ -222,28 +224,36 @@ Please note that if there is a secondary icon defined (i.e., if ```behind_swiped
 
 > It can also be set in Kotlin:
 > 
-> ```mList.behindSwipedItemIconDrawableId = R.drawable.your_icon```
+> ```kotlin
+> mList.behindSwipedItemIconDrawableId = R.drawable.your_icon
+> ```
 
 ##### ```behind_swiped_item_icon_secondary```
 The drawable of the icon to display behind an item that is being swiped in the secondary direction (i.e., right for horizontal swiping and up for vertical swiping). If set to null, the main icon -if defined- will be the only one to be displayed in all swipe directions. Null by default.
 
 > It can also be set in Kotlin:
 > 
-> ```mList.behindSwipedItemIconSecondaryDrawableId = R.drawable.your_icon```
+> ```kotlin
+> mList.behindSwipedItemIconSecondaryDrawableId = R.drawable.your_icon
+> ```
 
 ##### ```behind_swiped_item_icon_margin```
 The distance between the icon displayed behind an item that is being swiped and the side of the item from which the swiping started. 0 if not specified; ignored if ```behind_swiped_item_icon_centered ``` is true.
 
 > It can also be set in Kotlin:
 > 
-> ```mList.behindSwipedItemIconMargin = <margin_value_as_float>```
+> ```kotlin
+> mList.behindSwipedItemIconMargin = <margin_value_as_float>
+> ```
 
 ##### ```behind_swiped_item_icon_centered```
 Determines whether the icon displayed behind an item that is being swiped should be centered. If true, the icon will be centered; if false, the icon will be displayed near the side from which the swiping started. False by default.
 
 > It can also be set in Kotlin:
 > 
-> ```mList.behindSwipedItemCenterIcon = true```
+> ```kotlin
+> mList.behindSwipedItemCenterIcon = true
+> ```
 
 ##### ```behind_swiped_item_bg_color```
 The background color to be displayed behind an item that is being swiped in the default direction (i.e., left for horizontal swiping and down for vertical swiping). If set to null, no color will be displayed behind items that are being swiped. Null by default.
@@ -252,21 +262,27 @@ Please note that if there is a secondary color defined (i.e., if ```behind_swipe
 
 > It can also be set in Kotlin:
 > 
-> ```mList.behindSwipedItemBackgroundColor = <color_value_as_integer>```
+> ```kotlin
+> mList.behindSwipedItemBackgroundColor = <color_value_as_integer>
+> ```
 
 ##### ```behind_swiped_item_bg_color_secondary```
 The background color to be displayed behind an item that is being swiped in the secondary direction (i.e., right for horizontal swiping and up for vertical swiping). If set to null, the main background color -if defined- will be the only one to be displayed in all swipe directions. Null by default.
 
 > It can also be set in Kotlin:
 > 
-> ```mList.behindSwipedItemBackgroundSecondaryColor = <color_value_as_integer>```
+> ```kotlin
+> mList.behindSwipedItemBackgroundSecondaryColor = <color_value_as_integer>
+> ```
 
 ##### ```swiped_item_opacity_fades_on_swiping```
 Determines whether the item that is being swiped should appear more transparent the further it gets from its original position. False by default.
 
 > It can also be set in Kotlin:
 > 
-> ```mList.reduceItemAlphaOnSwiping = true```
+> ```kotlin
+> mList.reduceItemAlphaOnSwiping = true
+> ```
 
 #### Customizing The Swipe Action Further
 In case you want to create your own layouts to display behind the swiped items, you can use these two attributes:
@@ -278,14 +294,18 @@ Please note that if there is a secondary layout defined (i.e., if ```behind_swip
 
 > It can also be set in Kotlin:
 > 
-> ```mList.behindSwipedItemLayoutId = R.layout.your_custom_layout```
+> ```kotlin
+> mList.behindSwipedItemLayoutId = R.layout.your_custom_layout
+> ```
 
 ##### ```behind_swiped_item_custom_layout_secondary```
 The custom layout to be displayed behind an item that is being swiped in the secondary direction (i.e., right for horizontal swiping and up for vertical swiping). If set to null, the main custom layout -if defined- will be the only one to be displayed in all swipe directions. Null by default.
 
 > It can also be set in Kotlin:
 > 
-> ```mList.behindSwipedItemSecondaryLayoutId = R.layout.your_custom_layout```
+> ```kotlin
+> mList.behindSwipedItemSecondaryLayoutId = R.layout.your_custom_layout
+> ```
 
 ### Behaviour Customization
 You can customize the behaviour of the list in the adapter.
