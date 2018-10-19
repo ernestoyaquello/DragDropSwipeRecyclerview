@@ -95,7 +95,6 @@ internal class DragDropSwipeTouchHelper(
         val itemWidth = viewHolder.itemView.measuredWidth
         val itemHeight = viewHolder.itemView.measuredHeight
         if (recyclerViewWidth != null && recyclerViewHeight != null) {
-            // TODO Make this check in a less ugly way (Kotlin probably has something for this kind of stuff)
             val isSwipingHorizontally = (mOrientation.swipeFlags and ItemTouchHelper.RIGHT == ItemTouchHelper.RIGHT)
                     || (mOrientation.swipeFlags and ItemTouchHelper.LEFT == ItemTouchHelper.LEFT)
             threshold *= if (isSwipingHorizontally)

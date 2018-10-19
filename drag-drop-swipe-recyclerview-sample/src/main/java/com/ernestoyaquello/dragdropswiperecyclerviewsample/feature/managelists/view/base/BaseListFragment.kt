@@ -151,7 +151,7 @@ abstract class BaseListFragment : Fragment() {
 
         // Reload the whole fragment to apply the changes
         // (notifying changes on the data set wouldn't be enough because of view recycling)
-        var fragmentManager = activity?.supportFragmentManager
+        val fragmentManager = activity?.supportFragmentManager
         if (fragmentManager != null) {
             val fragment: BaseListFragment = when (currentListFragmentType) {
                 ListFragmentType.VERTICAL -> VerticalListFragment.newInstance()

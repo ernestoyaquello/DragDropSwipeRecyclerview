@@ -56,7 +56,6 @@ class IceCreamRepository : BaseRepository<IceCream>() {
             "Dragon Fruit",
             "Elderberry",
             "Fig",
-            "Goji berry",
             "Gooseberry",
             "Grape",
             "Raisin",

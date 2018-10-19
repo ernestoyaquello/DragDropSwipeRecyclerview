@@ -124,6 +124,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
      * @param viewHolder The view holder for which the dragging action has started.
      */
     protected open fun onDragStarted(item: T, viewHolder: U) {
+        // Do nothing in this method because it is up to the user of this library to implement or not
     }
 
     /**
@@ -133,6 +134,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
      * @param viewHolder The view holder for which the swiping action has started.
      */
     protected open fun onSwipeStarted(item: T, viewHolder: U) {
+        // Do nothing in this method because it is up to the user of this library to implement or not
     }
 
     /**
@@ -162,6 +164,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             canvasUnder: Canvas?,
             canvasOver: Canvas?,
             isUserControlled: Boolean) {
+        // Do nothing in this method because it is up to the user of this library to implement or not
     }
 
     /**
@@ -188,6 +191,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             canvasUnder: Canvas?,
             canvasOver: Canvas?,
             isUserControlled: Boolean) {
+        // Do nothing in this method because it is up to the user of this library to implement or not
     }
 
     /**
@@ -197,6 +201,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
      * @param viewHolder The view holder for which the dragging action has finished.
      */
     protected open fun onDragFinished(item: T, viewHolder: U) {
+        // Do nothing in this method because it is up to the user of this library to implement or not
     }
 
     /**
@@ -206,6 +211,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
      * @param viewHolder The view holder for which the swiping animation has finished.
      */
     protected open fun onSwipeAnimationFinished(viewHolder: U) {
+        // Do nothing in this method because it is up to the user of this library to implement or not
     }
 
     private var itemTouchHelper : ItemTouchHelper
@@ -455,7 +461,6 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         val list = recyclerView
         if (list != null) {
 
-            // TODO Make this check in a less ugly way (Kotlin probably has something for this kind of stuff)
             val isSwipingHorizontally = (orientation.swipeFlags and ItemTouchHelper.RIGHT == ItemTouchHelper.RIGHT)
                     || (orientation.swipeFlags and ItemTouchHelper.LEFT == ItemTouchHelper.LEFT)
             val isSecondaryDirection = (isSwipingHorizontally && offsetX > 0) || (!isSwipingHorizontally && offsetY < 0)
