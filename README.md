@@ -154,6 +154,21 @@ mList.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH
 > // Set this property if your grid can be scrolled horizontally
 > mList.numOfRowsPerColumnInGridList = <numberOfRows>
 > ```
+> 
+> ##### Restricting swiping and dragging directions
+> In case you want to disallow dragging or swiping actions in certain directions, you can do the following:
+> 
+> ```kotlin
+> // This disallows swiping items to the right
+> mList.orientation?.removeSwipeDirectionFlag(ListOrientation.DirectionFlag.RIGHT)
+> ```
+> 
+> Or:
+> 
+> ```kotlin
+> // This disallows dragging items up
+> mList.orientation?.removeDragDirectionFlag(ListOrientation.DirectionFlag.UP)
+> ```
 
 #### Set event listeners
 Finally, create event listeners for the events you want to handle. For example, these are the listeners for actions of *swiping*, *dragging & dropping* and *scrolling*:
