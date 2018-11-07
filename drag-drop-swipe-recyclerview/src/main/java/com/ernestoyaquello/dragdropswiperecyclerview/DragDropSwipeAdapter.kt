@@ -150,7 +150,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     /**
      * Called automatically to get the ID of the layout that will be displayed behind this specific
      * item when swiped in the secondary direction (i.e., when swiped either right or up).
-     * If null, this will be ignored and the default swipe layout of the list, if any, will be used.
+     * If null, this will be ignored and the default swipe layout of this item, if any, will be used.
+     * In case there isn't one, the default swipe layout of the list, if any, will be used.
      * Null by default.
      *
      * @param item The item as read from the corresponding position of the data set.
