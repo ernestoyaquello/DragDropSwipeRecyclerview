@@ -30,50 +30,131 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
      * Indicates the orientation of a recycler view of type DragDropSwipeRecyclerView.
      */
     enum class ListOrientation(
-            internal val dragFlags: Int,
-            internal val swipeFlags: Int) {
+            internal var dragFlagsValue: Int,
+            internal var swipeFlagsValue: Int) {
 
         /**
          * The list will be scrolled vertically and its items will be dragged only vertically.
          */
         VERTICAL_LIST_WITH_VERTICAL_DRAGGING(
-                ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT),
+                DirectionFlag.UP.value or DirectionFlag.DOWN.value,
+                DirectionFlag.LEFT.value or DirectionFlag.RIGHT.value),
 
         /**
          * The list will be scrolled vertically and its items will be dragged in any direction.
          */
         VERTICAL_LIST_WITH_UNCONSTRAINED_DRAGGING(
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT),
+                DirectionFlag.LEFT.value or DirectionFlag.RIGHT.value or DirectionFlag.UP.value or DirectionFlag.DOWN.value,
+                DirectionFlag.LEFT.value or DirectionFlag.RIGHT.value),
 
         /**
          * The list will be scrolled horizontally and its items will be dragged only horizontally.
          */
         HORIZONTAL_LIST_WITH_HORIZONTAL_DRAGGING(
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT,
-                ItemTouchHelper.UP or ItemTouchHelper.DOWN),
+                DirectionFlag.LEFT.value or DirectionFlag.RIGHT.value,
+                DirectionFlag.UP.value or DirectionFlag.DOWN.value),
 
         /**
          * The list will be scrolled horizontally and its items will be dragged in any direction.
          */
         HORIZONTAL_LIST_WITH_UNCONSTRAINED_DRAGGING(
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                ItemTouchHelper.UP or ItemTouchHelper.DOWN),
+                DirectionFlag.LEFT.value or DirectionFlag.RIGHT.value or DirectionFlag.UP.value or DirectionFlag.DOWN.value,
+                DirectionFlag.UP.value or DirectionFlag.DOWN.value),
 
         /**
          * The list will be arranged as a grid and its items will be swiped only horizontally.
          */
         GRID_LIST_WITH_HORIZONTAL_SWIPING(
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT),
+                DirectionFlag.LEFT.value or DirectionFlag.RIGHT.value or DirectionFlag.UP.value or DirectionFlag.DOWN.value,
+                DirectionFlag.LEFT.value or DirectionFlag.RIGHT.value),
 
         /**
          * The list will be arranged as a grid and its items will be swiped only vertically.
          */
         GRID_LIST_WITH_VERTICAL_SWIPING(
                 ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-                ItemTouchHelper.UP or ItemTouchHelper.DOWN)
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN);
+
+        /**
+         * Direction flags for the drag action. Determines in which direction the user gestures
+         * will cause dragging to happen.
+         */
+        val dragDirectionFlags: List<DirectionFlag>
+            get() {
+                val dragFlagsList = mutableListOf<DirectionFlag>()
+
+                if (dragFlagsValue and DirectionFlag.UP.value == DirectionFlag.UP.value)
+                    dragFlagsList.add(DirectionFlag.UP)
+                if (dragFlagsValue and DirectionFlag.DOWN.value == DirectionFlag.DOWN.value)
+                    dragFlagsList.add(DirectionFlag.DOWN)
+                if (dragFlagsValue and DirectionFlag.LEFT.value == DirectionFlag.LEFT.value)
+                    dragFlagsList.add(DirectionFlag.LEFT)
+                if (dragFlagsValue and DirectionFlag.RIGHT.value == DirectionFlag.RIGHT.value)
+                    dragFlagsList.add(DirectionFlag.RIGHT)
+
+                return dragFlagsList
+            }
+
+        /**
+         * Direction flags for the swipe action. Determines in which direction the user gestures
+         * will cause swiping to happen.
+         */
+        val swipeDirectionFlags: List<DirectionFlag>
+            get() {
+                val swipeFlagsList = mutableListOf<DirectionFlag>()
+
+                if (swipeFlagsValue and DirectionFlag.UP.value == DirectionFlag.UP.value)
+                    swipeFlagsList.add(DirectionFlag.UP)
+                if (swipeFlagsValue and DirectionFlag.DOWN.value == DirectionFlag.DOWN.value)
+                    swipeFlagsList.add(DirectionFlag.DOWN)
+                if (swipeFlagsValue and DirectionFlag.LEFT.value == DirectionFlag.LEFT.value)
+                    swipeFlagsList.add(DirectionFlag.LEFT)
+                if (swipeFlagsValue and DirectionFlag.RIGHT.value == DirectionFlag.RIGHT.value)
+                    swipeFlagsList.add(DirectionFlag.RIGHT)
+
+                return swipeFlagsList
+            }
+
+        /**
+         * Removes the specified direction flag from the drag flags.
+         *
+         * @param flag The flag to be removed.
+         */
+        fun removeDragDirectionFlag(flag: DirectionFlag) {
+            dragFlagsValue = dragFlagsValue xor flag.value
+        }
+
+        /**
+         * Removes the specified direction flag from the swipe flags.
+         *
+         * @param flag The flag to be removed.
+         */
+        fun removeSwipeDirectionFlag(flag: DirectionFlag) {
+            swipeFlagsValue = swipeFlagsValue xor flag.value
+        }
+
+        enum class DirectionFlag(internal val value: Int) {
+
+            /**
+             * Up direction, used for swipe & drag control.
+             */
+            UP(ItemTouchHelper.UP),
+
+            /**
+             * Down direction, used for swipe & drag control.
+             */
+            DOWN(ItemTouchHelper.DOWN),
+
+            /**
+             * Left direction, used for swipe & drag control.
+             */
+            LEFT(ItemTouchHelper.LEFT),
+
+            /**
+             * Right direction, used for swipe & drag control.
+             */
+            RIGHT(ItemTouchHelper.RIGHT);
+        }
     }
 
     private var itemDecoration: DragDropSwipeItemDecoration? = null

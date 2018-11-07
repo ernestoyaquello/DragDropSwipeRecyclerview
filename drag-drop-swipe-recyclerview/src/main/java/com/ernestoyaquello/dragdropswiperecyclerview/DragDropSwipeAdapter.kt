@@ -10,6 +10,7 @@ import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListene
 import com.ernestoyaquello.dragdropswiperecyclerview.util.DragDropSwipeTouchHelper
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawHorizontalDividers
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawVerticalDividers
+import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView.ListOrientation.DirectionFlag
 
 /**
  * Needs to be implemented by any adapter to be used within a DragDropSwipeRecyclerView.
@@ -461,8 +462,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         val list = recyclerView
         if (list != null) {
 
-            val isSwipingHorizontally = (orientation.swipeFlags and ItemTouchHelper.RIGHT == ItemTouchHelper.RIGHT)
-                    || (orientation.swipeFlags and ItemTouchHelper.LEFT == ItemTouchHelper.LEFT)
+            val isSwipingHorizontally = (orientation.swipeFlagsValue and DirectionFlag.RIGHT.value == DirectionFlag.RIGHT.value)
+                    || (orientation.swipeFlagsValue and DirectionFlag.LEFT.value == DirectionFlag.LEFT.value)
             val isSecondaryDirection = (isSwipingHorizontally && offsetX > 0) || (!isSwipingHorizontally && offsetY < 0)
 
             // The current "coordinates" of the layout with the swipe translation applied to it

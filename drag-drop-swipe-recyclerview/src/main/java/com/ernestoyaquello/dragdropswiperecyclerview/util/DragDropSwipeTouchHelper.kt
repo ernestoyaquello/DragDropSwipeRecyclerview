@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView.ListOrientation
+import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView.ListOrientation.DirectionFlag
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener.SwipeDirection
 
 internal class DragDropSwipeTouchHelper(
@@ -95,8 +96,8 @@ internal class DragDropSwipeTouchHelper(
         val itemWidth = viewHolder.itemView.measuredWidth
         val itemHeight = viewHolder.itemView.measuredHeight
         if (recyclerViewWidth != null && recyclerViewHeight != null) {
-            val isSwipingHorizontally = (mOrientation.swipeFlags and ItemTouchHelper.RIGHT == ItemTouchHelper.RIGHT)
-                    || (mOrientation.swipeFlags and ItemTouchHelper.LEFT == ItemTouchHelper.LEFT)
+            val isSwipingHorizontally = (mOrientation.swipeFlagsValue and DirectionFlag.RIGHT.value == DirectionFlag.RIGHT.value)
+                    || (mOrientation.swipeFlagsValue and DirectionFlag.LEFT.value == DirectionFlag.LEFT.value)
             threshold *= if (isSwipingHorizontally)
                 (itemWidth.toFloat() / recyclerViewWidth.toFloat())
             else
@@ -109,8 +110,8 @@ internal class DragDropSwipeTouchHelper(
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         if (viewHolder is DragDropSwipeAdapter.ViewHolder) {
             return ItemTouchHelper.Callback.makeMovementFlags(
-                    if (viewHolder.canBeDragged) mOrientation.dragFlags else 0,
-                    if (viewHolder.canBeSwiped) mOrientation.swipeFlags else 0)
+                    if (viewHolder.canBeDragged) mOrientation.dragFlagsValue else 0,
+                    if (viewHolder.canBeSwiped) mOrientation.swipeFlagsValue else 0)
         }
 
         return 0
