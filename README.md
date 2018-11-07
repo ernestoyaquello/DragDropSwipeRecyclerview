@@ -12,7 +12,7 @@ Add the library to your project via Gradle:
 
 ```
 dependencies {
-    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.0.2'
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.0.3'
 }
 ```
 
@@ -153,6 +153,21 @@ mList.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH
 > ```kotlin
 > // Set this property if your grid can be scrolled horizontally
 > mList.numOfRowsPerColumnInGridList = <numberOfRows>
+> ```
+> 
+> ##### Restricting swiping and dragging directions
+> In case you want to disallow dragging or swiping actions in certain directions, you can do the following:
+> 
+> ```kotlin
+> // This disallows swiping items to the right
+> mList.orientation?.removeSwipeDirectionFlag(ListOrientation.DirectionFlag.RIGHT)
+> ```
+> 
+> Or:
+> 
+> ```kotlin
+> // This disallows dragging items up
+> mList.orientation?.removeDragDirectionFlag(ListOrientation.DirectionFlag.UP)
 > ```
 
 #### Set event listeners
@@ -389,6 +404,45 @@ Called automatically to know if the specified item can be swiped.
 > **`position`** The position of the item within the adapter's data set.
 >
 > ***`returns`*** True if the item can be swiped; false otherwise. True by default.
+
+---
+
+#### Customizing the view behind a swiped item
+Some of the adapter methods can be extended to customize the layout that will be displayed behind specific items when swiped:
+
+---
+
+##### `getBehindSwipedItemLayoutId(item: T, viewHolder: U, position: Int): Int?`
+Called automatically to get the ID of the layout that will be displayed behind this specific item when swiped in the main direction (i.e., when swiped either left or down). If there isn't a secondary layout ID defined for this item, this one will also be displayed behind the item when swiped in the secondary direction (i.e., either right or up).
+
+If set, **the layout will be accessible for customization** inside `onBindViewHolder()` via `holder.behindSwipedItemLayout`.
+
+If null, this will be ignored and the default *behind-swiped* layout of the list, if any, will be used. Null by default.
+
+> **`item`** The item as read from the corresponding position of the data set.
+> 
+> **`viewHolder`** The corresponding view holder.
+>
+> **`position`** The position of the item within the adapter's data set.
+>
+> ***`returns`*** The ID of the layout that will be displayed behind this item when swiping it.
+
+---
+
+##### `getBehindSwipedItemSecondaryLayoutId(item: T, viewHolder: U, position: Int): Int?`
+Called automatically to get the ID of the layout that will be displayed behind this specific item when swiped in the secondary direction (i.e., when swiped either right or up).
+
+If set, **the layout will be accessible for customization** inside `onBindViewHolder()` via `holder.behindSwipedItemSecondaryLayout`.
+
+If null, this will be ignored and the main *behind-siped* layout of this item, if any, will be used. If there isn't one, the default *behind-swiped* layout of the list, if any, will be used. Null by default.
+
+> **`item`** The item as read from the corresponding position of the data set.
+> 
+> **`viewHolder`** The corresponding view holder.
+>
+> **`position`** The position of the item within the adapter's data set.
+>
+> ***`returns`*** The ID of the layout that will be displayed behind this item when swiping it in the secondary direction.
 
 ---
 
