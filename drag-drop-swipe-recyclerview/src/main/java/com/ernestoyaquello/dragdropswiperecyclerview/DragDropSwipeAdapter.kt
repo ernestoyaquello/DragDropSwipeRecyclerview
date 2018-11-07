@@ -286,6 +286,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
 
         override fun onItemDropped(initialPosition: Int, finalPosition: Int) {
             val item = mutableDataSet[finalPosition]
+            onListItemDropped(initialPosition, finalPosition)
 
             dragListener?.onItemDropped(initialPosition, finalPosition, item)
         }
@@ -424,13 +425,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     }
 
     fun moveItem(previousPosition: Int, newPosition: Int) {
-        val item = mutableDataSet[previousPosition]
-        mutableDataSet.removeAt(previousPosition)
-        mutableDataSet.add(newPosition, item)
-
-        notifyItemMoved(previousPosition, newPosition)
-        notifyItemChanged(previousPosition)
-        notifyItemChanged(newPosition)
+        moveItem(previousPosition, newPosition, forceReBinding = true)
     }
 
     fun moveItem(newPosition: Int, item: T) {
@@ -441,8 +436,30 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             insertItem(newPosition, item)
     }
 
+    private fun moveItem(previousPosition: Int, newPosition: Int, forceReBinding: Boolean = true) {
+        val item = mutableDataSet[previousPosition]
+        mutableDataSet.removeAt(previousPosition)
+        mutableDataSet.add(newPosition, item)
+
+        notifyItemMoved(previousPosition, newPosition)
+        if (forceReBinding) {
+            val minPosition = Math.min(previousPosition, newPosition)
+            val numberOfItemsAffected = Math.abs(previousPosition - newPosition) + 1
+            notifyItemRangeChanged(minPosition, numberOfItemsAffected)
+        }
+    }
+
     private fun onListItemDragged(previousPosition: Int, newPosition: Int) {
-        moveItem(previousPosition, newPosition)
+        // We avoid forcing the items to re-bind while the dragging is still going on because
+        // that would cause lag and weird visuals
+        moveItem(previousPosition, newPosition, forceReBinding = false)
+    }
+
+    private fun onListItemDropped(initialPosition: Int, finalPosition: Int) {
+        // Now that the dragging has finished we ask the list to re-bind the affected items
+        val minPosition = Math.min(initialPosition, finalPosition)
+        val numberOfItemsAffected = Math.abs(initialPosition - finalPosition) + 1
+        notifyItemRangeChanged(minPosition, numberOfItemsAffected)
     }
 
     private fun onListItemSwiped(position: Int) {
