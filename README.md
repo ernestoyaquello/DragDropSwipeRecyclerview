@@ -392,6 +392,45 @@ Called automatically to know if the specified item can be swiped.
 
 ---
 
+#### Customizing the view behind a swiped item
+Some of the adapter methods can be extended to customize the layout that will be displayed behind specific items when swiped:
+
+---
+
+##### `getBehindSwipedItemLayoutId(item: T, viewHolder: U, position: Int): Int?`
+Called automatically to get the ID of the layout that will be displayed behind this specific item when swiped in the main direction (i.e., when swiped either left or down). If there isn't a secondary layout ID defined for this item, this one will also be displayed behind the item when swiped in the secondary direction (i.e., either right or up).
+
+If set, **the layout will be accessible for customization** inside `onBindViewHolder()` via `holder.behindSwipedItemLayout`.
+
+If null, this will be ignored and the default *behind-swiped* layout of the list, if any, will be used. Null by default.
+
+> **`item`** The item as read from the corresponding position of the data set.
+> 
+> **`viewHolder`** The corresponding view holder.
+>
+> **`position`** The position of the item within the adapter's data set.
+>
+> ***`returns`*** The ID of the layout that will be displayed behind this item when swiping it.
+
+---
+
+##### `getBehindSwipedItemSecondaryLayoutId(item: T, viewHolder: U, position: Int): Int?`
+Called automatically to get the ID of the layout that will be displayed behind this specific item when swiped in the secondary direction (i.e., when swiped either right or up).
+
+If set, **the layout will be accessible for customization** inside `onBindViewHolder()` via `holder.behindSwipedItemSecondaryLayout`.
+
+If null, this will be ignored and the main *behind-siped* layout of this item, if any, will be used. If there isn't one, the default *behind-swiped* layout of the list, if any, will be used. Null by default.
+
+> **`item`** The item as read from the corresponding position of the data set.
+> 
+> **`viewHolder`** The corresponding view holder.
+>
+> **`position`** The position of the item within the adapter's data set.
+>
+> ***`returns`*** The ID of the layout that will be displayed behind this item when swiping it in the secondary direction.
+
+---
+
 #### Event Handling within the adapter
 Some of the adapter methods are callbacks that can be extended to customize the items after certain events, such as `DragStarted`, `SwipeStarted`, `IsDragging`, `IsSwiping`, `DragFinished`, `SwipeFinished`, etc. For example, you might want to update some of the item's views to change its appearance whenever the item is being dragged or swiped.
 
