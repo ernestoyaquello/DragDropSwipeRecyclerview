@@ -349,8 +349,8 @@ The custom layout to be displayed behind an item that is being swiped in the sec
 ---
 
 ### Adapter customization
-#### Customizing the view behind a swiped item
-Some of the adapter methods can be extended to customize the layout that will be displayed behind specific items when swiped:
+#### Customizing the layout behind a swiped item
+Some of the adapter methods can be extended to customize the layout that will be displayed behind a specific item when swiped:
 
 ---
 
