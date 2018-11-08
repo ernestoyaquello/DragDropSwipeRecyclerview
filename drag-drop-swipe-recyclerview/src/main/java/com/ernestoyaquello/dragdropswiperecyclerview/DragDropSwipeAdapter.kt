@@ -294,9 +294,9 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     private val itemSwipeListener = object : DragDropSwipeTouchHelper.OnItemSwipeListener {
         override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection) {
             val item = mutableDataSet[position]
-            onListItemSwiped(position)
 
-            swipeListener?.onItemSwiped(position, direction, item)
+            if (swipeListener?.onItemSwiped(position, direction, item) != true)
+                onListItemSwiped(position)
         }
     }
 
