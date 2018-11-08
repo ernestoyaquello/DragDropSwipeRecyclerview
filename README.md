@@ -178,7 +178,7 @@ private val onItemSwipeListener = object : OnItemSwipeListener<String> {
     override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection, item: String): Boolean {
         // Handle action of item swiped
         // Return false to indicate that the item should be removed from the adapter's data set
-        // (If you return true, the item will not be removed from the adapter's data set and it will be your responsibility to update it)
+        // (If you return true, the item will not be removed from the adapter's data set and it will be your responsibility to update the data set)
         return false
     }
 }
