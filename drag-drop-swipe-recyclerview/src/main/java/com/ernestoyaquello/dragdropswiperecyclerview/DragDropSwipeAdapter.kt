@@ -286,7 +286,6 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
 
         override fun onItemDropped(initialPosition: Int, finalPosition: Int) {
             val item = mutableDataSet[finalPosition]
-            onListItemDropped(initialPosition, finalPosition)
 
             dragListener?.onItemDropped(initialPosition, finalPosition, item)
         }
@@ -402,41 +401,32 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         else throw TypeCastException("The recycler view must be an extension of DragDropSwipeRecyclerView.")
     }
 
-    fun addItem(item: T) {
+    fun addItem(item: T, forceReBinding: Boolean = false) {
         mutableDataSet.add(item)
         val position = mutableDataSet.indexOf(item)
 
         notifyItemInserted(position)
-        notifyItemRangeChanged(position, itemCount - position)
+        if (forceReBinding)
+            notifyItemRangeChanged(position, itemCount - position)
     }
 
-    fun insertItem(position: Int, item: T) {
+    fun insertItem(position: Int, item: T, forceReBinding: Boolean = false) {
         mutableDataSet.add(position, item)
 
         notifyItemInserted(position)
-        notifyItemRangeChanged(position, itemCount - position)
+        if (forceReBinding)
+            notifyItemRangeChanged(position, itemCount - position)
     }
 
-    fun removeItem(position: Int) {
+    fun removeItem(position: Int, forceReBinding: Boolean = false) {
         mutableDataSet.removeAt(position)
 
         notifyItemRemoved(position)
-        notifyItemRangeChanged(position, itemCount - position)
+        if (forceReBinding)
+            notifyItemRangeChanged(position, itemCount - position)
     }
 
-    fun moveItem(previousPosition: Int, newPosition: Int) {
-        moveItem(previousPosition, newPosition, forceReBinding = true)
-    }
-
-    fun moveItem(newPosition: Int, item: T) {
-        val previousPosition = mutableDataSet.indexOf(item)
-        if (previousPosition != -1)
-            moveItem(previousPosition, newPosition)
-        else
-            insertItem(newPosition, item)
-    }
-
-    private fun moveItem(previousPosition: Int, newPosition: Int, forceReBinding: Boolean = true) {
+    fun moveItem(previousPosition: Int, newPosition: Int, forceReBinding: Boolean = false) {
         val item = mutableDataSet[previousPosition]
         mutableDataSet.removeAt(previousPosition)
         mutableDataSet.add(newPosition, item)
@@ -449,17 +439,16 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         }
     }
 
-    private fun onListItemDragged(previousPosition: Int, newPosition: Int) {
-        // We avoid forcing the items to re-bind while the dragging is still going on because
-        // that would cause lag and weird visuals
-        moveItem(previousPosition, newPosition, forceReBinding = false)
+    fun moveItem(newPosition: Int, item: T) {
+        val previousPosition = mutableDataSet.indexOf(item)
+        if (previousPosition != -1)
+            moveItem(previousPosition, newPosition)
+        else
+            insertItem(newPosition, item)
     }
 
-    private fun onListItemDropped(initialPosition: Int, finalPosition: Int) {
-        // Now that the dragging has finished we ask the list to re-bind the affected items
-        val minPosition = Math.min(initialPosition, finalPosition)
-        val numberOfItemsAffected = Math.abs(initialPosition - finalPosition) + 1
-        notifyItemRangeChanged(minPosition, numberOfItemsAffected)
+    private fun onListItemDragged(previousPosition: Int, newPosition: Int) {
+        moveItem(previousPosition, newPosition)
     }
 
     private fun onListItemSwiped(position: Int) {
