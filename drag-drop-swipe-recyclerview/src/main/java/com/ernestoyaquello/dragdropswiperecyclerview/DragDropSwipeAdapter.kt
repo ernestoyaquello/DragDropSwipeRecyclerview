@@ -486,6 +486,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         if (behindSwipedItemLayoutId != null) {
             var behindSwipedItemLayout = viewHolder.behindSwipedItemLayout
             if (behindSwipedItemLayout == null || behindSwipedItemLayout.id != behindSwipedItemLayoutId) {
+                
+                viewHolder.behindSwipedItemLayout = null
                 behindSwipedItemLayout = null
                 val context = recyclerView?.context
                 if (context != null)
@@ -505,6 +507,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         if (behindSwipedItemSecondaryLayoutId != null) {
             var behindSwipedItemSecondaryLayout = viewHolder.behindSwipedItemSecondaryLayout
             if (behindSwipedItemSecondaryLayout == null || behindSwipedItemSecondaryLayout.id != behindSwipedItemSecondaryLayoutId) {
+
+                viewHolder.behindSwipedItemSecondaryLayout = null
                 behindSwipedItemSecondaryLayout = null
                 val context = recyclerView?.context
                 if (context != null)
