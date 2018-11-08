@@ -294,9 +294,9 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     private val itemSwipeListener = object : DragDropSwipeTouchHelper.OnItemSwipeListener {
         override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection) {
             val item = mutableDataSet[position]
-            onListItemSwiped(position)
 
-            swipeListener?.onItemSwiped(position, direction, item)
+            if (swipeListener?.onItemSwiped(position, direction, item) != true)
+                onListItemSwiped(position)
         }
     }
 
@@ -481,27 +481,43 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         onSwipeAnimationFinished(viewHolder)
     }
 
-    private fun getBehindSwipedItemLayout(item: T?, viewHolder: U, position: Int): View? {
-        if (item != null) {
-            val list = recyclerView
-            if (list != null) {
-                val behindSwipedItemLayoutId = getBehindSwipedItemLayoutId(item, viewHolder, position)
-                if (behindSwipedItemLayoutId != null)
-                    return LayoutInflater.from(list.context).inflate(behindSwipedItemLayoutId, null, false)
+    private fun getBehindSwipedItemLayout(item: T, viewHolder: U, position: Int): View? {
+        val behindSwipedItemLayoutId = getBehindSwipedItemLayoutId(item, viewHolder, position)
+        if (behindSwipedItemLayoutId != null) {
+            var behindSwipedItemLayout = viewHolder.behindSwipedItemLayout
+            if (behindSwipedItemLayout == null || behindSwipedItemLayout.id != behindSwipedItemLayoutId) {
+                
+                viewHolder.behindSwipedItemLayout = null
+                behindSwipedItemLayout = null
+                val context = recyclerView?.context
+                if (context != null)
+                    behindSwipedItemLayout = LayoutInflater
+                            .from(context)
+                            .inflate(behindSwipedItemLayoutId, null, false)
             }
+
+            return behindSwipedItemLayout
         }
 
         return null
     }
 
-    private fun getBehindSwipedItemSecondaryLayout(item: T?, viewHolder: U, position: Int): View? {
-        if (item != null) {
-            val list = recyclerView
-            if (list != null) {
-                val behindSwipedItemSecondaryLayoutId = getBehindSwipedItemSecondaryLayoutId(item, viewHolder, position)
-                if (behindSwipedItemSecondaryLayoutId != null)
-                    return LayoutInflater.from(list.context).inflate(behindSwipedItemSecondaryLayoutId, null, false)
+    private fun getBehindSwipedItemSecondaryLayout(item: T, viewHolder: U, position: Int): View? {
+        val behindSwipedItemSecondaryLayoutId = getBehindSwipedItemSecondaryLayoutId(item, viewHolder, position)
+        if (behindSwipedItemSecondaryLayoutId != null) {
+            var behindSwipedItemSecondaryLayout = viewHolder.behindSwipedItemSecondaryLayout
+            if (behindSwipedItemSecondaryLayout == null || behindSwipedItemSecondaryLayout.id != behindSwipedItemSecondaryLayoutId) {
+
+                viewHolder.behindSwipedItemSecondaryLayout = null
+                behindSwipedItemSecondaryLayout = null
+                val context = recyclerView?.context
+                if (context != null)
+                    behindSwipedItemSecondaryLayout = LayoutInflater
+                            .from(context)
+                            .inflate(behindSwipedItemSecondaryLayoutId, null, false)
             }
+
+            return behindSwipedItemSecondaryLayout
         }
 
         return null
