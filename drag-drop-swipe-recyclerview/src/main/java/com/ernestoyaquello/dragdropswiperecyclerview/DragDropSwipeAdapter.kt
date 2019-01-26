@@ -538,9 +538,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             canvasOver: Canvas?,
             isUserControlled: Boolean) {
 
-        if (viewHolder.adapterPosition == NO_POSITION) return
         val currentAdapterPosition = viewHolder.adapterPosition
-        val item = if (currentAdapterPosition != -1) dataSet[currentAdapterPosition] else null
+        val item = if (currentAdapterPosition != NO_POSITION) dataSet[currentAdapterPosition] else null
 
         drawOnSwiping(offsetX, offsetY, viewHolder, canvasUnder, canvasOver)
         onIsSwiping(item, viewHolder, offsetX, offsetY, canvasUnder, canvasOver, isUserControlled)
@@ -553,9 +552,6 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             canvasUnder: Canvas?,
             canvasOver: Canvas?,
             isUserControlled: Boolean) {
-
-        if (viewHolder.adapterPosition == NO_POSITION)
-            return
 
         val item = dataSet[viewHolder.adapterPosition]
 
