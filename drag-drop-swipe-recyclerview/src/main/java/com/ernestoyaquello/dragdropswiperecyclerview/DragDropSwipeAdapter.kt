@@ -460,23 +460,26 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     }
 
     private fun onDragStartedImpl(viewHolder: U) {
+        viewHolder.isBeingDragged = true
+
         if (viewHolder.adapterPosition == NO_POSITION) return
         val item = dataSet[viewHolder.adapterPosition]
 
-        viewHolder.isBeingDragged = true
         onDragStarted(item, viewHolder)
     }
 
     private fun onSwipeStartedImpl(viewHolder: U) {
+        viewHolder.isBeingSwiped = true
+
         if (viewHolder.adapterPosition == NO_POSITION) return
         val item = dataSet[viewHolder.adapterPosition]
 
-        viewHolder.isBeingSwiped = true
         onSwipeStarted(item, viewHolder)
     }
 
     private fun onDragFinishedImpl(viewHolder: U) {
         viewHolder.isBeingDragged = false
+
         if (viewHolder.adapterPosition == NO_POSITION) return
         val item = dataSet[viewHolder.adapterPosition]
 
@@ -485,6 +488,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
 
     private fun onSwipeFinishedImpl(viewHolder: U) {
         viewHolder.isBeingSwiped = false
+
         onSwipeAnimationFinished(viewHolder)
     }
 
