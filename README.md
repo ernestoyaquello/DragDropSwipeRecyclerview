@@ -12,7 +12,7 @@ Add the library to your project via Gradle:
 
 ```
 dependencies {
-    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.1.0'
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.1.1'
 }
 ```
 
@@ -177,8 +177,8 @@ Finally, create event listeners for the events you want to handle. For example, 
 private val onItemSwipeListener = object : OnItemSwipeListener<String> {
     override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection, item: String): Boolean {
         // Handle action of item swiped
-        // Return false to indicate that the item should be removed from the adapter's data set
-        // (If you return true, the item will not be removed from the adapter's data set and it will be your responsibility to update the data set)
+        // Return false to indicate that the swiped item should be removed from the adapter's data set (default behaviour)
+        // Return true to stop the swiped item from being automatically removed from the adapter's data set (in this case, it will be your responsibility to manually update the data set as necessary)
         return false
     }
 }

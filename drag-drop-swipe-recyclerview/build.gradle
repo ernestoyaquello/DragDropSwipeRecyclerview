@@ -17,7 +17,7 @@ ext {
     siteUrl = 'https://github.com/ernestoyaquello/drag-drop-swipe-recyclerview'
     gitUrl = 'https://github.com/ernestoyaquello/drag-drop-swipe-recyclerview.git'
 
-    libraryVersion = '0.1.0'
+    libraryVersion = '0.1.1'
 
     developerId = 'ernestoyaquello'
     developerName = 'Julio Ernesto Rodríguez Cabañas'
@@ -34,7 +34,7 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 6
+        versionCode 7
         versionName libraryVersion
     }
 
@@ -49,9 +49,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.11"
 
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     api 'androidx.recyclerview:recyclerview:1.0.0'
 }
 
