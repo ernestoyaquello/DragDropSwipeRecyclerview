@@ -476,10 +476,10 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     }
 
     private fun onDragFinishedImpl(viewHolder: U) {
+        viewHolder.isBeingDragged = false
         if (viewHolder.adapterPosition == NO_POSITION) return
         val item = dataSet[viewHolder.adapterPosition]
 
-        viewHolder.isBeingDragged = false
         onDragFinished(item, viewHolder)
     }
 
