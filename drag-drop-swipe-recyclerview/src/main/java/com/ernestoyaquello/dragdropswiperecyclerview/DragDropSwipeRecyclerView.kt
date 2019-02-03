@@ -117,20 +117,59 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
 
         /**
          * Removes the specified direction flag from the drag flags.
+         * Please note that the the next time you select the affected value of the enum type,
+         * this change will still be applied to it.
          *
          * @param flag The flag to be removed.
          */
         fun removeDragDirectionFlag(flag: DirectionFlag) {
-            dragFlagsValue = dragFlagsValue xor flag.value
+            val newValue = dragFlagsValue xor flag.value
+
+            // To make sure we don't perform this operation twice, which will restore the original flag
+            // value, we only assign the new flag value if it is lower than the previous one.
+            dragFlagsValue = if (newValue < dragFlagsValue) newValue else dragFlagsValue
         }
 
         /**
          * Removes the specified direction flag from the swipe flags.
+         * Please note that the the next time you select the affected value of the enum type,
+         * this change will still be applied to it.
          *
          * @param flag The flag to be removed.
          */
         fun removeSwipeDirectionFlag(flag: DirectionFlag) {
-            swipeFlagsValue = swipeFlagsValue xor flag.value
+            val newValue = swipeFlagsValue xor flag.value
+
+            // To make sure we don't perform this operation twice, which will restore the original flag
+            // value, we only assign the new flag value if it is lower than the previous one.
+            swipeFlagsValue = if (newValue < swipeFlagsValue) newValue else swipeFlagsValue
+        }
+
+        /**
+         * Adds the specified direction flag to the drag flags.
+         * Please note that the the next time you select the affected value of the enum type,
+         * this change will still be applied to it.
+         *
+         * @param flag The flag to be added.
+         */
+        fun addDragDirectionFlag(flag: DirectionFlag) {
+            dragFlagsValue = dragFlagsValue or flag.value
+        }
+
+        /**
+         * Adds the specified direction flag to the swipe flags.
+         * Please note that the the next time you select the affected value of the enum type,
+         * this change will still be applied to it.
+         *
+         * @param flag The flag to be added.
+         */
+        fun addSwipeDirectionFlag(flag: DirectionFlag) {
+            swipeFlagsValue = swipeFlagsValue or flag.value
+        }
+
+        internal fun restoreFlags(dragFlagsValue: Int, swipeFlagsValue: Int) {
+            this.dragFlagsValue = dragFlagsValue
+            this.swipeFlagsValue = swipeFlagsValue
         }
 
         enum class DirectionFlag(internal val value: Int) {
@@ -595,6 +634,8 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
             bundle.putInt(NUM_OF_COLUMNS_PER_ROW_IN_GRID_LIST_KEY, numOfColumnsPerRowInGridList)
             bundle.putInt(NUM_OF_ROWS_PER_COLUMN_IN_GRID_LIST_KEY, numOfRowsPerColumnInGridList)
             bundle.putString(ORIENTATION_NAME_KEY, orientation?.name)
+            bundle.putInt(ORIENTATION_DRAG_FLAGS_KEY, orientation?.dragFlagsValue ?: 0)
+            bundle.putInt(ORIENTATION_SWIPE_FLAGS_KEY, orientation?.swipeFlagsValue ?: 0)
 
             return bundle
         }
@@ -621,8 +662,13 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
             numOfColumnsPerRowInGridList = state.getInt(NUM_OF_COLUMNS_PER_ROW_IN_GRID_LIST_KEY, 1)
             numOfRowsPerColumnInGridList = state.getInt(NUM_OF_ROWS_PER_COLUMN_IN_GRID_LIST_KEY, 1)
             val savedOrientationName = state.getString(ORIENTATION_NAME_KEY, null)
-            if (savedOrientationName != null && !savedOrientationName.isEmpty())
-                orientation = ListOrientation.valueOf(savedOrientationName)
+            val savedOrientationDragFlags = state.getInt(ORIENTATION_DRAG_FLAGS_KEY, 0)
+            val savedOrientationSwipeFlags = state.getInt(ORIENTATION_SWIPE_FLAGS_KEY, 0)
+            if (savedOrientationName != null && !savedOrientationName.isEmpty()) {
+                val auxOrientation = ListOrientation.valueOf(savedOrientationName)
+                auxOrientation.restoreFlags(savedOrientationDragFlags, savedOrientationSwipeFlags)
+                orientation = auxOrientation
+            }
         }
 
         super.onRestoreInstanceState(superState)
@@ -644,5 +690,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
         const val NUM_OF_COLUMNS_PER_ROW_IN_GRID_LIST_KEY = "num_of_columns_per_row_in_grid_list"
         const val NUM_OF_ROWS_PER_COLUMN_IN_GRID_LIST_KEY = "num_of_rows_per_column_in_grid_list"
         const val ORIENTATION_NAME_KEY = "orientation_name"
+        const val ORIENTATION_DRAG_FLAGS_KEY = "orientation_drag_flags"
+        const val ORIENTATION_SWIPE_FLAGS_KEY = "orientation_swipe_flags"
     }
 }
