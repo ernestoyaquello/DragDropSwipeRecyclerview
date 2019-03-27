@@ -52,9 +52,9 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
      * @param layout The layout of the corresponding list item.
      */
     abstract class ViewHolder(layout: View) : RecyclerView.ViewHolder(layout) {
-        internal var canBeDragged = true
-        internal var canBeDroppedOver = true
-        internal var canBeSwiped = true
+        internal var canBeDragged: (() -> Boolean)? = null
+        internal var canBeDroppedOver: (() -> Boolean)? = null
+        internal var canBeSwiped: (() -> Boolean)? = null
         internal var isBeingDragged = false
         internal var isBeingSwiped = false
 
@@ -371,17 +371,37 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     override fun onBindViewHolder(holder: U, position: Int) {
         val item = mutableDataSet[position]
 
-        holder.canBeDragged = canBeDragged(item, holder, position)
-        holder.canBeDroppedOver = canBeDroppedOver(item, holder, position)
-        holder.canBeSwiped = canBeSwiped(item, holder, position)
+        // Setting these lambdas here instead of only once inside onCreateViewHolder() to make sure
+        // they get set even if onCreateViewHolder() is overridden by the user
+        holder.canBeDragged = holder.canBeDragged ?: {
+            val viewHolderPosition = holder.adapterPosition
+            val viewHolderItem = mutableDataSet[viewHolderPosition]
+            if (viewHolderPosition != NO_POSITION)
+                canBeDragged(viewHolderItem, holder, viewHolderPosition)
+            else false
+        }
+        holder.canBeDroppedOver = holder.canBeDroppedOver ?: {
+            val viewHolderPosition = holder.adapterPosition
+            val viewHolderItem = mutableDataSet[viewHolderPosition]
+            if (viewHolderPosition != NO_POSITION)
+                canBeDroppedOver(viewHolderItem, holder, viewHolderPosition)
+            else false
+        }
+        holder.canBeSwiped = holder.canBeSwiped ?: {
+            val viewHolderPosition = holder.adapterPosition
+            val viewHolderItem = mutableDataSet[viewHolderPosition]
+            if (viewHolderPosition != NO_POSITION)
+                canBeSwiped(viewHolderItem, holder, viewHolderPosition)
+            else false
+        }
+
         holder.behindSwipedItemLayout = getBehindSwipedItemLayout(item, holder, position)
         holder.behindSwipedItemSecondaryLayout = getBehindSwipedItemSecondaryLayout(item, holder, position)
 
         onBindViewHolder(item, holder, position)
 
-        if (holder.canBeDragged) {
-            val viewToDrag = getViewToTouchToStartDraggingItem(item, holder, position)
-                    ?: holder.itemView
+        if (holder.canBeDragged?.invoke() == true) {
+            val viewToDrag = getViewToTouchToStartDraggingItem(item, holder, position) ?: holder.itemView
             setItemDragAndDrop(viewToDrag, holder)
         }
     }
@@ -807,7 +827,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
 
     private fun getDragAndDropTouchListener(holder: U) = View.OnTouchListener { _,
                                                                                 event ->
-        if (holder.canBeDragged && event?.actionMasked == MotionEvent.ACTION_DOWN)
+        if (holder.canBeDragged?.invoke() == true && event?.actionMasked == MotionEvent.ACTION_DOWN)
             itemTouchHelper.startDrag(holder)
 
         false

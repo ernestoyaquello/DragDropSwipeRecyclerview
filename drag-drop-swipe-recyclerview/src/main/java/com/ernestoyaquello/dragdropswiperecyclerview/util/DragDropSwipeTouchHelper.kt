@@ -110,8 +110,8 @@ internal class DragDropSwipeTouchHelper(
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         if (viewHolder is DragDropSwipeAdapter.ViewHolder) {
             return ItemTouchHelper.Callback.makeMovementFlags(
-                    if (viewHolder.canBeDragged) mOrientation.dragFlagsValue else 0,
-                    if (viewHolder.canBeSwiped) mOrientation.swipeFlagsValue else 0)
+                    if (viewHolder.canBeDragged?.invoke() == true) mOrientation.dragFlagsValue else 0,
+                    if (viewHolder.canBeSwiped?.invoke() == true) mOrientation.swipeFlagsValue else 0)
         }
 
         return 0
@@ -130,7 +130,7 @@ internal class DragDropSwipeTouchHelper(
             recyclerView: RecyclerView,
             current: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder) =
-            (target as? DragDropSwipeAdapter.ViewHolder)?.canBeDroppedOver ?: false
+            (target as? DragDropSwipeAdapter.ViewHolder)?.canBeDroppedOver?.invoke() == true
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val position = viewHolder.adapterPosition
