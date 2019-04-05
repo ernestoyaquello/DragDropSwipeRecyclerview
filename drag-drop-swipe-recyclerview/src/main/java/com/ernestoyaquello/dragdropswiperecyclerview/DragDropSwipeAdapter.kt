@@ -375,23 +375,26 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         // they get set even if onCreateViewHolder() is overridden by the user
         holder.canBeDragged = holder.canBeDragged ?: {
             val viewHolderPosition = holder.adapterPosition
-            val viewHolderItem = mutableDataSet[viewHolderPosition]
-            if (viewHolderPosition != NO_POSITION)
+            if (viewHolderPosition != NO_POSITION) {
+                val viewHolderItem = mutableDataSet[viewHolderPosition]
                 canBeDragged(viewHolderItem, holder, viewHolderPosition)
+            }
             else false
         }
         holder.canBeDroppedOver = holder.canBeDroppedOver ?: {
             val viewHolderPosition = holder.adapterPosition
-            val viewHolderItem = mutableDataSet[viewHolderPosition]
-            if (viewHolderPosition != NO_POSITION)
+            if (viewHolderPosition != NO_POSITION) {
+                val viewHolderItem = mutableDataSet[viewHolderPosition]
                 canBeDroppedOver(viewHolderItem, holder, viewHolderPosition)
+            }
             else false
         }
         holder.canBeSwiped = holder.canBeSwiped ?: {
             val viewHolderPosition = holder.adapterPosition
-            val viewHolderItem = mutableDataSet[viewHolderPosition]
-            if (viewHolderPosition != NO_POSITION)
+            if (viewHolderPosition != NO_POSITION) {
+                val viewHolderItem = mutableDataSet[viewHolderPosition]
                 canBeSwiped(viewHolderItem, holder, viewHolderPosition)
+            }
             else false
         }
 
