@@ -428,42 +428,31 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         } else throw TypeCastException("The recycler view must be an extension of DragDropSwipeRecyclerView.")
     }
 
-    fun addItem(item: T, forceReBinding: Boolean = false) {
+    fun addItem(item: T) {
         mutableDataSet.add(item)
         val position = mutableDataSet.indexOf(item)
 
         notifyItemInserted(position)
-        if (forceReBinding)
-            notifyItemRangeChanged(position, itemCount - position)
     }
 
-    fun insertItem(position: Int, item: T, forceReBinding: Boolean = false) {
+    fun insertItem(position: Int, item: T) {
         mutableDataSet.add(position, item)
 
         notifyItemInserted(position)
-        if (forceReBinding)
-            notifyItemRangeChanged(position, itemCount - position)
     }
 
-    fun removeItem(position: Int, forceReBinding: Boolean = false) {
+    fun removeItem(position: Int) {
         mutableDataSet.removeAt(position)
 
         notifyItemRemoved(position)
-        if (forceReBinding)
-            notifyItemRangeChanged(position, itemCount - position)
     }
 
-    fun moveItem(previousPosition: Int, newPosition: Int, forceReBinding: Boolean = false) {
+    fun moveItem(previousPosition: Int, newPosition: Int) {
         val item = mutableDataSet[previousPosition]
         mutableDataSet.removeAt(previousPosition)
         mutableDataSet.add(newPosition, item)
 
         notifyItemMoved(previousPosition, newPosition)
-        if (forceReBinding) {
-            val minPosition = Math.min(previousPosition, newPosition)
-            val numberOfItemsAffected = Math.abs(previousPosition - newPosition) + 1
-            notifyItemRangeChanged(minPosition, numberOfItemsAffected)
-        }
     }
 
     fun moveItem(newPosition: Int, item: T) {
