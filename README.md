@@ -194,6 +194,10 @@ private val onItemDragListener = object : OnItemDragListener<String> {
 }
 
 private val onListScrollListener = object : OnListScrollListener {
+    override fun onListScrollStateChanged(scrollState: OnListScrollListener.ScrollState) {
+        // Handle change on list scroll state
+    }
+
     override fun onListScrolled(scrollDirection: OnListScrollListener.ScrollDirection, distance: Int) {
         // Handle scrolling
     }
