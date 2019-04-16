@@ -20,6 +20,19 @@ open class ScrollAwareRecyclerView @JvmOverloads constructor(
     var scrollListener: OnListScrollListener? = null
 
     private val internalListScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+
+            when (newState) {
+                SCROLL_STATE_IDLE ->
+                    scrollListener?.onListScrollStateChanged(OnListScrollListener.ScrollState.IDLE)
+                SCROLL_STATE_DRAGGING ->
+                    scrollListener?.onListScrollStateChanged(OnListScrollListener.ScrollState.DRAGGING)
+                SCROLL_STATE_SETTLING ->
+                    scrollListener?.onListScrollStateChanged(OnListScrollListener.ScrollState.SETTLING)
+            }
+        }
+
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 

@@ -71,6 +71,11 @@ abstract class BaseListFragment : Fragment() {
     }
 
     private val onListScrollListener = object : OnListScrollListener {
+        override fun onListScrollStateChanged(scrollState: OnListScrollListener.ScrollState) {
+            // Call commented out to avoid saturating the log
+            //Logger.log("List scroll state changed to $scrollState")
+        }
+
         override fun onListScrolled(scrollDirection: OnListScrollListener.ScrollDirection, distance: Int) {
             // Call commented out to avoid saturating the log
             //Logger.log("List scrolled $distance pixels $scrollDirection")
