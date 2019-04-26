@@ -398,6 +398,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             else false
         }
 
+        holder.itemView.alpha = 1f
         holder.behindSwipedItemLayout = getBehindSwipedItemLayout(item, holder, position)
         holder.behindSwipedItemSecondaryLayout = getBehindSwipedItemSecondaryLayout(item, holder, position)
 
