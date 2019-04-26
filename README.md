@@ -536,6 +536,11 @@ At the time this method gets called, the item has already been removed from the 
 ## Complete Example
 Check out the **Sample App** that is included in this repository: it has vertical lists, horizontal lists and grid lists, and it makes use of most of the library's features.
 
+## Support this library
+The creation (and maintenance) of this library requires time and effort. If you find it useful and want to support it, please use the link below:
+
+[![Buy me a coffee!](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ernestoyaquello)
+
 ## Contribution
 Feel free to contribute to this library, any help will be welcomed!
 
