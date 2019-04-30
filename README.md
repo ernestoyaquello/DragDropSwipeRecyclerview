@@ -2,9 +2,9 @@
 Highly customizable Android library written in Kotlin that uses AndroidX and extends `RecyclerView` to include extra features, such as support for *drag & drop* and *swipe* gestures, among others. It works with vertical, horizontal and grid lists.
 
 ## Demo
-![Drag & drop and swipe recycler view; demo with vertical list](https://raw.githubusercontent.com/ernestoyaquello/DragDropSwipeRecyclerview/develop/readme/drag-drop-swipe-list-demo.gif)
+![Drag & drop and swipe recycler view; demo with vertical list](https://raw.githubusercontent.com/ernestoyaquello/DragDropSwipeRecyclerview/master/readme/drag-drop-swipe-list-demo.gif)
 
-![Drag & drop and swipe recycler view; demo with grid list](https://raw.githubusercontent.com/ernestoyaquello/DragDropSwipeRecyclerview/develop/readme/drag-drop-swipe-list-demo2.gif)
+![Drag & drop and swipe recycler view; demo with grid list](https://raw.githubusercontent.com/ernestoyaquello/DragDropSwipeRecyclerview/master/readme/drag-drop-swipe-list-demo2.gif)
 
 ## Support this library
 The creation (and maintenance) of this library requires time and effort. If you find it useful and want to support it, please use the link below:
@@ -223,7 +223,7 @@ mList.scrollListener = onListScrollListener
 ### DragDropSwipeRecyclerView customization
 There are several `XML` attributes that you can set in the `DragDropSwipeRecyclerView` in order to customize the style of the list and its items:
 
-![Drag & drop and swipe recycler view; available XML attributes](https://raw.githubusercontent.com/ernestoyaquello/DragDropSwipeRecyclerview/develop/readme/drag-drop-swipe-item-customization.jpg)
+![Drag & drop and swipe recycler view; available XML attributes](https://raw.githubusercontent.com/ernestoyaquello/DragDropSwipeRecyclerview/master/readme/drag-drop-swipe-item-customization.jpg)
 
 ---
 
