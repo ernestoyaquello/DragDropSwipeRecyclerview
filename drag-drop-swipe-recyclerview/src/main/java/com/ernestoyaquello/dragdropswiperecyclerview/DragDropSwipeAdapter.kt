@@ -398,16 +398,14 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             else false
         }
 
+        val viewToDrag = getViewToTouchToStartDraggingItem(item, holder, position) ?: holder.itemView
+        setItemDragAndDrop(viewToDrag, holder)
+
         holder.itemView.alpha = 1f
         holder.behindSwipedItemLayout = getBehindSwipedItemLayout(item, holder, position)
         holder.behindSwipedItemSecondaryLayout = getBehindSwipedItemSecondaryLayout(item, holder, position)
 
         onBindViewHolder(item, holder, position)
-
-        if (holder.canBeDragged?.invoke() == true) {
-            val viewToDrag = getViewToTouchToStartDraggingItem(item, holder, position) ?: holder.itemView
-            setItemDragAndDrop(viewToDrag, holder)
-        }
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
