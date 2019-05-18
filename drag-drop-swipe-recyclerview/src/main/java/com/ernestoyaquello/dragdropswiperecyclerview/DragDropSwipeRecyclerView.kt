@@ -613,7 +613,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
         }
     }
 
-    override fun onSaveInstanceState(): Parcelable {
+    override fun onSaveInstanceState(): Parcelable? {
         val superState = super.onSaveInstanceState()
 
         if (isSaveEnabled) {
