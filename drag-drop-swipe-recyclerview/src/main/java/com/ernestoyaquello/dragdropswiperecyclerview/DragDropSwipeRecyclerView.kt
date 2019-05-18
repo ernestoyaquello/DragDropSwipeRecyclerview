@@ -664,7 +664,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
             val savedOrientationName = state.getString(ORIENTATION_NAME_KEY, null)
             val savedOrientationDragFlags = state.getInt(ORIENTATION_DRAG_FLAGS_KEY, 0)
             val savedOrientationSwipeFlags = state.getInt(ORIENTATION_SWIPE_FLAGS_KEY, 0)
-            if (savedOrientationName != null && !savedOrientationName.isEmpty()) {
+            if (savedOrientationName != null && savedOrientationName.isNotEmpty()) {
                 val auxOrientation = ListOrientation.valueOf(savedOrientationName)
                 auxOrientation.restoreFlags(savedOrientationDragFlags, savedOrientationSwipeFlags)
                 orientation = auxOrientation
