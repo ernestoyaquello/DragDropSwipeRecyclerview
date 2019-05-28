@@ -38,12 +38,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         }
 
     private val orientation: DragDropSwipeRecyclerView.ListOrientation
-        get() {
-            val currentOrientation = recyclerView?.orientation
-            if (currentOrientation != null)
-                return currentOrientation
-            else throw NullPointerException("The orientation of the DragDropSwipeRecyclerView is not defined.")
-        }
+        get() = recyclerView?.orientation
+                ?: throw NullPointerException("The orientation of the DragDropSwipeRecyclerView is not defined.")
 
     /**
      * The view holder abstract type whose implementation should be used in the implementation
@@ -58,18 +54,14 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         internal var isBeingDragged = false
         internal var isBeingSwiped = false
 
-        private var _behindSwipedItemLayout: View? = null
-        var behindSwipedItemLayout
-            get() = _behindSwipedItemLayout
+        var behindSwipedItemLayout: View? = null
             internal set(value) {
-                _behindSwipedItemLayout = value
+                field = value
             }
 
-        private var _behindSwipedItemSecondaryLayout: View? = null
-        var behindSwipedItemSecondaryLayout
-            get() = _behindSwipedItemSecondaryLayout
+        var behindSwipedItemSecondaryLayout: View? = null
             internal set(value) {
-                _behindSwipedItemSecondaryLayout = value
+                field = value
             }
     }
 
@@ -270,14 +262,12 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
 
     @Suppress("UNCHECKED_CAST")
     internal fun setInternalDragListener(listener: OnItemDragListener<*>?) {
-        if (listener != null)
-            dragListener = listener as? OnItemDragListener<T>
+        dragListener = listener as? OnItemDragListener<T>
     }
 
     @Suppress("UNCHECKED_CAST")
     internal fun setInternalSwipeListener(listener: OnItemSwipeListener<*>?) {
-        if (listener != null)
-            swipeListener = listener as? OnItemSwipeListener<T>
+        swipeListener = listener as? OnItemSwipeListener<T>
     }
 
     private val itemDragListener = object : DragDropSwipeTouchHelper.OnItemDragListener {
@@ -289,7 +279,9 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         }
 
         override fun onItemDropped(initialPosition: Int, finalPosition: Int) {
-            if (finalPosition == NO_POSITION) return
+            if (finalPosition == NO_POSITION)
+                return
+
             val item = mutableDataSet[finalPosition]
 
             dragListener?.onItemDropped(initialPosition, finalPosition, item)
@@ -371,39 +363,40 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     override fun onBindViewHolder(holder: U, position: Int) {
         val item = mutableDataSet[position]
 
-        // Setting these lambdas here instead of only once inside onCreateViewHolder() to make sure
-        // they get set even if onCreateViewHolder() is overridden by the user
-        holder.canBeDragged = holder.canBeDragged ?: {
-            val viewHolderPosition = holder.adapterPosition
-            if (viewHolderPosition != NO_POSITION) {
-                val viewHolderItem = mutableDataSet[viewHolderPosition]
-                canBeDragged(viewHolderItem, holder, viewHolderPosition)
+        holder.apply {
+            // Setting these lambdas here instead of only once inside onCreateViewHolder() to make
+            // sure they get set even if onCreateViewHolder() is overridden by the user
+            canBeDragged = holder.canBeDragged ?: {
+                val viewHolderPosition = holder.adapterPosition
+                if (viewHolderPosition != NO_POSITION) {
+                    val viewHolderItem = mutableDataSet[viewHolderPosition]
+                    canBeDragged(viewHolderItem, holder, viewHolderPosition)
+                }
+                else false
             }
-            else false
-        }
-        holder.canBeDroppedOver = holder.canBeDroppedOver ?: {
-            val viewHolderPosition = holder.adapterPosition
-            if (viewHolderPosition != NO_POSITION) {
-                val viewHolderItem = mutableDataSet[viewHolderPosition]
-                canBeDroppedOver(viewHolderItem, holder, viewHolderPosition)
+            canBeDroppedOver = holder.canBeDroppedOver ?: {
+                val viewHolderPosition = holder.adapterPosition
+                if (viewHolderPosition != NO_POSITION) {
+                    val viewHolderItem = mutableDataSet[viewHolderPosition]
+                    canBeDroppedOver(viewHolderItem, holder, viewHolderPosition)
+                }
+                else false
             }
-            else false
-        }
-        holder.canBeSwiped = holder.canBeSwiped ?: {
-            val viewHolderPosition = holder.adapterPosition
-            if (viewHolderPosition != NO_POSITION) {
-                val viewHolderItem = mutableDataSet[viewHolderPosition]
-                canBeSwiped(viewHolderItem, holder, viewHolderPosition)
+            canBeSwiped = holder.canBeSwiped ?: {
+                val viewHolderPosition = holder.adapterPosition
+                if (viewHolderPosition != NO_POSITION) {
+                    val viewHolderItem = mutableDataSet[viewHolderPosition]
+                    canBeSwiped(viewHolderItem, holder, viewHolderPosition)
+                }
+                else false
             }
-            else false
+            itemView.alpha = 1f
+            behindSwipedItemLayout = getBehindSwipedItemLayout(item, holder, position)
+            behindSwipedItemSecondaryLayout = getBehindSwipedItemSecondaryLayout(item, holder, position)
         }
 
         val viewToDrag = getViewToTouchToStartDraggingItem(item, holder, position) ?: holder.itemView
         setItemDragAndDrop(viewToDrag, holder)
-
-        holder.itemView.alpha = 1f
-        holder.behindSwipedItemLayout = getBehindSwipedItemLayout(item, holder, position)
-        holder.behindSwipedItemSecondaryLayout = getBehindSwipedItemSecondaryLayout(item, holder, position)
 
         onBindViewHolder(item, holder, position)
     }
@@ -473,7 +466,9 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     private fun onDragStartedImpl(viewHolder: U) {
         viewHolder.isBeingDragged = true
 
-        if (viewHolder.adapterPosition == NO_POSITION) return
+        if (viewHolder.adapterPosition == NO_POSITION)
+            return
+
         val item = dataSet[viewHolder.adapterPosition]
 
         onDragStarted(item, viewHolder)
@@ -482,7 +477,9 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     private fun onSwipeStartedImpl(viewHolder: U) {
         viewHolder.isBeingSwiped = true
 
-        if (viewHolder.adapterPosition == NO_POSITION) return
+        if (viewHolder.adapterPosition == NO_POSITION)
+            return
+
         val item = dataSet[viewHolder.adapterPosition]
 
         onSwipeStarted(item, viewHolder)
@@ -491,7 +488,9 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     private fun onDragFinishedImpl(viewHolder: U) {
         viewHolder.isBeingDragged = false
 
-        if (viewHolder.adapterPosition == NO_POSITION) return
+        if (viewHolder.adapterPosition == NO_POSITION)
+            return
+
         val item = dataSet[viewHolder.adapterPosition]
 
         onDragFinished(item, viewHolder)
@@ -504,45 +503,37 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     }
 
     private fun getBehindSwipedItemLayout(item: T, viewHolder: U, position: Int): View? {
-        val behindSwipedItemLayoutId = getBehindSwipedItemLayoutId(item, viewHolder, position)
-        if (behindSwipedItemLayoutId != null) {
-            var behindSwipedItemLayout = viewHolder.behindSwipedItemLayout
-            if (behindSwipedItemLayout == null || behindSwipedItemLayout.id != behindSwipedItemLayoutId) {
-
-                viewHolder.behindSwipedItemLayout = null
-                behindSwipedItemLayout = null
-                val context = recyclerView?.context
-                if (context != null)
-                    behindSwipedItemLayout = LayoutInflater
+        return getBehindSwipedItemLayoutId(item, viewHolder, position)?.let { behindSwipedItemLayoutId ->
+            if (viewHolder.behindSwipedItemLayout?.id != behindSwipedItemLayoutId) {
+                // The behind-swiped-items layout was never inflated before or the
+                // layout ID has changed, so we inflate it
+                return recyclerView?.context?.let { context ->
+                     LayoutInflater
                             .from(context)
                             .inflate(behindSwipedItemLayoutId, null, false)
+                }
             }
 
-            return behindSwipedItemLayout
+            // The behind-swiped layout was already inflated, so we just return it
+            return viewHolder.behindSwipedItemLayout
         }
-
-        return null
     }
 
     private fun getBehindSwipedItemSecondaryLayout(item: T, viewHolder: U, position: Int): View? {
-        val behindSwipedItemSecondaryLayoutId = getBehindSwipedItemSecondaryLayoutId(item, viewHolder, position)
-        if (behindSwipedItemSecondaryLayoutId != null) {
-            var behindSwipedItemSecondaryLayout = viewHolder.behindSwipedItemSecondaryLayout
-            if (behindSwipedItemSecondaryLayout == null || behindSwipedItemSecondaryLayout.id != behindSwipedItemSecondaryLayoutId) {
-
-                viewHolder.behindSwipedItemSecondaryLayout = null
-                behindSwipedItemSecondaryLayout = null
-                val context = recyclerView?.context
-                if (context != null)
-                    behindSwipedItemSecondaryLayout = LayoutInflater
+        return getBehindSwipedItemSecondaryLayoutId(item, viewHolder, position)?.let { behindSwipedItemSecondaryLayoutId ->
+            if (viewHolder.behindSwipedItemSecondaryLayout?.id != behindSwipedItemSecondaryLayoutId) {
+                // The secondary behind-swiped-items layout was never inflated before
+                // or the ID has changed, so we inflate it
+                return recyclerView?.context?.let { context ->
+                    LayoutInflater
                             .from(context)
                             .inflate(behindSwipedItemSecondaryLayoutId, null, false)
+                }
             }
 
-            return behindSwipedItemSecondaryLayout
+            // The secondary behind-swiped-items layout was already inflated, so we just return it
+            return viewHolder.behindSwipedItemSecondaryLayout
         }
-
-        return null
     }
 
     private fun onIsSwipingImpl(
@@ -580,8 +571,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             viewHolder: U,
             canvasUnder: Canvas?,
             canvasOver: Canvas?) {
-        val list = recyclerView
-        if (list != null) {
+
+        recyclerView?.let { list ->
 
             val isSwipingHorizontally = (orientation.swipeFlagsValue and DirectionFlag.RIGHT.value == DirectionFlag.RIGHT.value)
                     || (orientation.swipeFlagsValue and DirectionFlag.LEFT.value == DirectionFlag.LEFT.value)
@@ -642,11 +633,10 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         }
     }
 
-    private fun drawOnDragging(canvasOver: Canvas?, viewHolder: U) {
-        val list = recyclerView
-        if (canvasOver != null && list != null)
-            drawDividers(list, canvasOver, viewHolder)
-    }
+    private fun drawOnDragging(canvasOver: Canvas?, viewHolder: U) =
+            recyclerView?.let { list ->
+                if (canvasOver != null) drawDividers(list, canvasOver, viewHolder)
+            }
 
     private fun drawLayoutBehindOnSwiping(
             list: DragDropSwipeRecyclerView,
@@ -793,8 +783,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             bottom: Int? = null,
             alpha: Float? = null) {
 
-        val dividerDrawable = list.dividerDrawable
-        if (dividerDrawable != null) {
+        list.dividerDrawable?.let { dividerDrawable ->
             when (orientation) {
                 DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING,
                 DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_UNCONSTRAINED_DRAGGING ->
@@ -816,11 +805,10 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     private fun setItemDragAndDrop(view: View, holder: U) =
             view.setOnTouchListener(getDragAndDropTouchListener(holder))
 
-    private fun getDragAndDropTouchListener(holder: U) = View.OnTouchListener { _,
-                                                                                event ->
-        if (holder.canBeDragged?.invoke() == true && event?.actionMasked == MotionEvent.ACTION_DOWN)
-            itemTouchHelper.startDrag(holder)
-
-        false
-    }
+    private fun getDragAndDropTouchListener(holder: U) =
+            View.OnTouchListener { _, event ->
+                if (holder.canBeDragged?.invoke() == true && event?.actionMasked == MotionEvent.ACTION_DOWN)
+                    itemTouchHelper.startDrag(holder)
+                false
+            }
 }

@@ -109,7 +109,7 @@ internal class DragDropSwipeTouchHelper(
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         if (viewHolder is DragDropSwipeAdapter.ViewHolder) {
-            return ItemTouchHelper.Callback.makeMovementFlags(
+            return makeMovementFlags(
                     if (viewHolder.canBeDragged?.invoke() == true) mOrientation.dragFlagsValue else 0,
                     if (viewHolder.canBeSwiped?.invoke() == true) mOrientation.swipeFlagsValue else 0)
         }

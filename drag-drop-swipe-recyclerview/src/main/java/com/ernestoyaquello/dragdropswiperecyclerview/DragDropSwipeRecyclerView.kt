@@ -7,7 +7,6 @@ import android.os.Parcelable
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ItemTouchHelper
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -576,7 +575,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
      * @param adapter The adapter to set. It must be an extension of the type DragDropSwipeAdapter.
      * @throws TypeCastException If the adapter is not an extension of the type DragDropSwipeAdapter.
      */
-    override fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
+    override fun setAdapter(adapter: Adapter<*>?) {
         when (adapter) {
             !is DragDropSwipeAdapter<*,*>? ->
                 throw TypeCastException("The adapter must be an extension of DragDropSwipeAdapter.")
