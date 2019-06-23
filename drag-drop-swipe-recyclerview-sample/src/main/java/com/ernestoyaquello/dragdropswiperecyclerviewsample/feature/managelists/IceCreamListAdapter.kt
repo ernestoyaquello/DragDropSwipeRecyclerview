@@ -54,17 +54,17 @@ class IceCreamListAdapter(dataSet: List<IceCream> = emptyList())
 
     override fun getViewToTouchToStartDraggingItem(item: IceCream, viewHolder: ViewHolder, position: Int) = viewHolder.dragIcon
 
-    override fun onDragStarted(item: IceCream, viewHolder: IceCreamListAdapter.ViewHolder) {
+    override fun onDragStarted(item: IceCream, viewHolder: ViewHolder) {
         Logger.log("Dragging started on ${item.name}")
     }
 
-    override fun onSwipeStarted(item: IceCream, viewHolder: IceCreamListAdapter.ViewHolder) {
+    override fun onSwipeStarted(item: IceCream, viewHolder: ViewHolder) {
         Logger.log("Swiping started on ${item.name}")
     }
 
     override fun onIsDragging(
             item: IceCream,
-            viewHolder: IceCreamListAdapter.ViewHolder,
+            viewHolder: ViewHolder,
             offsetX: Int,
             offsetY: Int,
             canvasUnder: Canvas?,
@@ -76,7 +76,7 @@ class IceCreamListAdapter(dataSet: List<IceCream> = emptyList())
 
     override fun onIsSwiping(
             item: IceCream?,
-            viewHolder: IceCreamListAdapter.ViewHolder,
+            viewHolder: ViewHolder,
             offsetX: Int,
             offsetY: Int,
             canvasUnder: Canvas?,
@@ -86,10 +86,11 @@ class IceCreamListAdapter(dataSet: List<IceCream> = emptyList())
         //Logger.log("The ${if (isUserControlled) "User" else "System"} is swiping ${item?.name} (offset X: $offsetX, offset Y: $offsetY)")
     }
 
-    override fun onDragFinished(item: IceCream, viewHolder: IceCreamListAdapter.ViewHolder) {
+    override fun onDragFinished(item: IceCream, viewHolder: ViewHolder) {
         Logger.log("Dragging finished on ${item.name} (the item was dropped)")
     }
-    override fun onSwipeAnimationFinished(viewHolder: IceCreamListAdapter.ViewHolder) {
+
+    override fun onSwipeAnimationFinished(viewHolder: ViewHolder) {
         Logger.log("Swiping animation finished")
     }
 }

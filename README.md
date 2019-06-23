@@ -388,7 +388,7 @@ Called automatically to get the ID of the layout that will be displayed behind t
 
 If set, **the layout will be accessible for customization** inside `onBindViewHolder()` via `holder.behindSwipedItemSecondaryLayout`.
 
-If null, this will be ignored and the main *behind-siped* layout of this item, if any, will be used. If there isn't one, the default *behind-swiped* layout of the list, if any, will be used. Null by default.
+If null, this will be ignored and the main *behind-swiped* layout of this item, if any, will be used. If there isn't one, the default *behind-swiped* layout of the list, if any, will be used. Null by default.
 
 > **`item`** The item as read from the corresponding position of the data set.
 > 
