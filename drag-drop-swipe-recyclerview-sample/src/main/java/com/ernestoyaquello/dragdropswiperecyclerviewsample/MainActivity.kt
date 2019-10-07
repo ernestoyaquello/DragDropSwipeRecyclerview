@@ -153,8 +153,8 @@ class MainActivity : AppCompatActivity() {
         }.commit()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             android.R.id.home -> {
                 if (isLogFragmentOpen()) {
                     navigateToListFragment()

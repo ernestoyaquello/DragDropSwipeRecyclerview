@@ -13,10 +13,6 @@ abstract class BaseRepository<T> {
     private val items = mutableListOf<T>()
     private val listeners = mutableListOf<OnItemAdditionListener<T>>()
 
-    var count: Int
-        get() = items.size
-        private set(value) {}
-
     fun getAllItems() = items.toList()
 
     abstract fun generateNewItem(): T

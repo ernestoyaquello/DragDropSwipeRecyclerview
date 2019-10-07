@@ -13,9 +13,27 @@ data class ListFragmentConfig(
         var isUsingFadeOnSwipedItems: Boolean)
 
 private val listFragmentConfigurations = listOf(
-        ListFragmentConfig(true, true, true, false),
-        ListFragmentConfig(false, false, true, true),
-        ListFragmentConfig(false, false, true, true)
+
+        // Initial state of the vertical-list fragment
+        ListFragmentConfig(
+                isUsingStandardItemLayout = true,
+                isRestrictingDraggingDirections = true,
+                isDrawingBehindSwipedItems = true,
+                isUsingFadeOnSwipedItems = false),
+
+        // Initial state of the horizontal-list fragment
+        ListFragmentConfig(
+                isUsingStandardItemLayout = false,
+                isRestrictingDraggingDirections = false,
+                isDrawingBehindSwipedItems = true,
+                isUsingFadeOnSwipedItems = true),
+
+        // Initial state of the grid-list fragment
+        ListFragmentConfig(
+                isUsingStandardItemLayout = false,
+                isRestrictingDraggingDirections = false,
+                isDrawingBehindSwipedItems = true,
+                isUsingFadeOnSwipedItems = true)
 )
 
 var currentListFragmentType = ListFragmentType.VERTICAL

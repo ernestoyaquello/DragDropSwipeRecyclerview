@@ -53,16 +53,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         internal var canBeSwiped: (() -> Boolean)? = null
         internal var isBeingDragged = false
         internal var isBeingSwiped = false
-
-        var behindSwipedItemLayout: View? = null
-            internal set(value) {
-                field = value
-            }
-
-        var behindSwipedItemSecondaryLayout: View? = null
-            internal set(value) {
-                field = value
-            }
+        internal var behindSwipedItemLayout: View? = null
+        internal var behindSwipedItemSecondaryLayout: View? = null
     }
 
     /**
