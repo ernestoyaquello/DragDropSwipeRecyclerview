@@ -27,16 +27,16 @@ internal class DragDropSwipeItemDecoration(var divider: Drawable) : RecyclerView
                     when (parent.orientation) {
                         ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING,
                         ListOrientation.VERTICAL_LIST_WITH_UNCONSTRAINED_DRAGGING ->
-                            drawHorizontalDividers(child, parent, c, divider)
+                            drawHorizontalDividers(child, c, divider)
 
                         ListOrientation.HORIZONTAL_LIST_WITH_UNCONSTRAINED_DRAGGING,
                         ListOrientation.HORIZONTAL_LIST_WITH_HORIZONTAL_DRAGGING ->
-                            drawVerticalDividers(child, parent, c, divider)
+                            drawVerticalDividers(child, c, divider)
 
                         ListOrientation.GRID_LIST_WITH_HORIZONTAL_SWIPING,
                         ListOrientation.GRID_LIST_WITH_VERTICAL_SWIPING -> {
-                            drawHorizontalDividers(child, parent, c, divider)
-                            drawVerticalDividers(child, parent, c, divider)
+                            drawHorizontalDividers(child, c, divider)
+                            drawVerticalDividers(child, c, divider)
                         }
                     }
             }
