@@ -63,7 +63,7 @@ class IceCreamListAdapter(dataSet: List<IceCream> = emptyList())
     }
 
     override fun onIsDragging(
-            item: IceCream,
+            item: IceCream?,
             viewHolder: ViewHolder,
             offsetX: Int,
             offsetY: Int,

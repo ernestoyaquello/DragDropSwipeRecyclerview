@@ -483,10 +483,10 @@ Called when the swiping starts.
 
 ---
 
-##### `onIsDragging(item: T, viewHolder: U, offsetX: Int, offsetY: Int, canvasUnder: Canvas?, canvasOver: Canvas?, isUserControlled: Boolean)`
+##### `onIsDragging(item: T?, viewHolder: U, offsetX: Int, offsetY: Int, canvasUnder: Canvas?, canvasOver: Canvas?, isUserControlled: Boolean)`
 Called when the dragging action (or animation) is occurring.
 
-> **`item`** The item as read from the corresponding position of the data set.
+> **`item`** The item as read from the corresponding position of the data set. It may be null in the unusual case when the dragged item is being momentaneously repositioned to an inexistent position by the system.
 >
 > **`viewHolder`** The view holder for which the dragging action is occurring.
 >

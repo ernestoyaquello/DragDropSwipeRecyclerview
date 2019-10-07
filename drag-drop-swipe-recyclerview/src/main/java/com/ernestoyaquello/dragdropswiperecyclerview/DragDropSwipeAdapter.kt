@@ -173,6 +173,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
      * Called when the dragging action (or animation) is occurring.
      *
      * @param item The item as read from the corresponding position of the data set.
+     *        It may be null in the unusual case when the dragged item is being momentaneously
+     *        repositioned to an inexistent position by the system.
      * @param viewHolder The view holder for which the dragging action is occurring.
      * @param offsetX The offset in the X axis caused by the horizontal movement of the item.
      *        This offset is the distance measured from the current position of the item, which
@@ -189,7 +191,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
      *        stopped touching it.
      */
     protected open fun onIsDragging(
-            item: T,
+            item: T?,
             viewHolder: U,
             offsetX: Int,
             offsetY: Int,
@@ -551,7 +553,8 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             canvasOver: Canvas?,
             isUserControlled: Boolean) {
 
-        val item = dataSet[viewHolder.adapterPosition]
+        val currentAdapterPosition = viewHolder.adapterPosition
+        val item = if (currentAdapterPosition != NO_POSITION) dataSet[currentAdapterPosition] else null
 
         drawOnDragging(canvasOver, viewHolder)
         onIsDragging(item, viewHolder, offsetX, offsetY, canvasUnder, canvasOver, isUserControlled)
