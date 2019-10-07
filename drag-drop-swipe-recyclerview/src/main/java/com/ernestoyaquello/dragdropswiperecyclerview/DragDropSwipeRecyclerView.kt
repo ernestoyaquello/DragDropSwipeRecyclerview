@@ -246,7 +246,6 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
 
             return field
         }
-        private set(value) { field = value }
 
     internal var behindSwipedItemIconSecondaryDrawable: Drawable? = null
         get() {
@@ -258,7 +257,6 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
 
             return field
         }
-        private set(value) { field = value }
 
     internal var behindSwipedItemSecondaryLayout: View? = null
         get() {
@@ -270,7 +268,6 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
 
             return field
         }
-        private set(value) { field = value }
 
     internal var behindSwipedItemLayout: View? = null
         get() {
@@ -282,7 +279,6 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
 
             return field
         }
-        private set(value) { field = value }
 
     /**
      * The ID of the item layout that will be used to populate each list item.

@@ -140,8 +140,8 @@ abstract class BaseListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) = inflater.inflate(optionsMenuId, menu)
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
 
             R.id.change_item_layout ->
                 currentListFragmentConfig.isUsingStandardItemLayout = !currentListFragmentConfig.isUsingStandardItemLayout
@@ -173,11 +173,10 @@ abstract class BaseListFragment : Fragment() {
         return true
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?) {
+    override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
 
-        if (menu != null)
-            updateMenuItemTitles(menu)
+        updateMenuItemTitles(menu)
     }
 
     private fun updateMenuItemTitles(menu: Menu) {
