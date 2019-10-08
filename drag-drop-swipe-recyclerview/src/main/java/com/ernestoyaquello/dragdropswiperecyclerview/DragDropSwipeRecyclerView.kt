@@ -451,6 +451,15 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
     var reduceItemAlphaOnSwiping: Boolean = false
 
     /**
+     * Determines whether the start of the dragging action will be triggered by a long press or by
+     * a standard one. True for long press; false for standard press.
+     * False by default.
+     *
+     * Can be set up in XML using the attribute "long_press_to_start_dragging".
+     */
+    var longPressToStartDragging: Boolean = false
+
+    /**
      * The number of columns of each row of the grid-arranged, vertically-scrollable list.
      * This value will be used to avoid drawing dividers in wrong positions. 1 by default.
      * To be ignored in non-grid-arranged lists.
@@ -559,6 +568,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
                 behindSwipedItemLayoutId = vars.getResourceId(R.styleable.DragDropSwipeRecyclerView_behind_swiped_item_custom_layout, 0)
                 behindSwipedItemSecondaryLayoutId = vars.getResourceId(R.styleable.DragDropSwipeRecyclerView_behind_swiped_item_custom_layout_secondary, 0)
                 reduceItemAlphaOnSwiping = vars.getBoolean(R.styleable.DragDropSwipeRecyclerView_swiped_item_opacity_fades_on_swiping, false)
+                longPressToStartDragging = vars.getBoolean(R.styleable.DragDropSwipeRecyclerView_long_press_to_start_dragging, false)
             } finally {
                 vars.recycle()
             }
@@ -626,6 +636,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
             bundle.putInt(BEHIND_SWIPED_ITEM_LAYOUT_ID_KEY, behindSwipedItemLayoutId ?: 0)
             bundle.putInt(BEHIND_SWIPED_ITEM_SECONDARY_LAYOUT_ID_KEY, behindSwipedItemSecondaryLayoutId ?: 0)
             bundle.putBoolean(REDUCE_ITEM_ALPHA_ON_SWIPING_KEY, reduceItemAlphaOnSwiping)
+            bundle.putBoolean(LONG_PRESS_TO_START_DRAGGING_KEY, longPressToStartDragging)
             bundle.putInt(NUM_OF_COLUMNS_PER_ROW_IN_GRID_LIST_KEY, numOfColumnsPerRowInGridList)
             bundle.putInt(NUM_OF_ROWS_PER_COLUMN_IN_GRID_LIST_KEY, numOfRowsPerColumnInGridList)
             bundle.putString(ORIENTATION_NAME_KEY, orientation?.name)
@@ -654,6 +665,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
             behindSwipedItemLayoutId = state.getInt(BEHIND_SWIPED_ITEM_LAYOUT_ID_KEY, 0)
             behindSwipedItemSecondaryLayoutId = state.getInt(BEHIND_SWIPED_ITEM_SECONDARY_LAYOUT_ID_KEY, 0)
             reduceItemAlphaOnSwiping = state.getBoolean(REDUCE_ITEM_ALPHA_ON_SWIPING_KEY, false)
+            longPressToStartDragging = state.getBoolean(LONG_PRESS_TO_START_DRAGGING_KEY, false)
             numOfColumnsPerRowInGridList = state.getInt(NUM_OF_COLUMNS_PER_ROW_IN_GRID_LIST_KEY, 1)
             numOfRowsPerColumnInGridList = state.getInt(NUM_OF_ROWS_PER_COLUMN_IN_GRID_LIST_KEY, 1)
             val savedOrientationName = state.getString(ORIENTATION_NAME_KEY, null)
@@ -682,6 +694,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
         const val BEHIND_SWIPED_ITEM_LAYOUT_ID_KEY = "behind_swiped_item_layout_id"
         const val BEHIND_SWIPED_ITEM_SECONDARY_LAYOUT_ID_KEY = "behind_swiped_item_secondary_layout_id"
         const val REDUCE_ITEM_ALPHA_ON_SWIPING_KEY = "reduce_item_alpha_on_swiping"
+        const val LONG_PRESS_TO_START_DRAGGING_KEY = "long_press_to_start_dragging"
         const val NUM_OF_COLUMNS_PER_ROW_IN_GRID_LIST_KEY = "num_of_columns_per_row_in_grid_list"
         const val NUM_OF_ROWS_PER_COLUMN_IN_GRID_LIST_KEY = "num_of_rows_per_column_in_grid_list"
         const val ORIENTATION_NAME_KEY = "orientation_name"

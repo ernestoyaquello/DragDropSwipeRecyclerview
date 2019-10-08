@@ -331,6 +331,17 @@ Determines whether the item that is being swiped should appear more transparent 
 
 ---
 
+##### `long_press_to_start_dragging`
+Determines whether the start of the dragging action will be triggered by a long press or by a standard one. True for long press; false for standard press. False by default.
+
+> It can also be set in Kotlin:
+> 
+> ```kotlin
+> mList.longPressToStartDragging = true
+> ```
+
+---
+
 #### Customizing the swipe action using custom layouts
 In case you want to create your own layouts to display behind the swiped items, you can use these two attributes:
 

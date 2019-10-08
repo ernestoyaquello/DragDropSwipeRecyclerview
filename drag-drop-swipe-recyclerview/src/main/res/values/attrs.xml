@@ -12,5 +12,6 @@
         <attr name="behind_swiped_item_custom_layout" format="reference" />
         <attr name="behind_swiped_item_custom_layout_secondary" format="reference" />
         <attr name="swiped_item_opacity_fades_on_swiping" format="boolean" />
+        <attr name="long_press_to_start_dragging" format="boolean" />
     </declare-styleable>
 </resources>
