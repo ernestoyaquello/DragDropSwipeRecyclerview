@@ -17,7 +17,7 @@ Add the library to your project via Gradle:
 
 ```
 dependencies {
-    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.5.0'
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.5.1'
 }
 ```
 
@@ -327,6 +327,17 @@ Determines whether the item that is being swiped should appear more transparent 
 > 
 > ```kotlin
 > mList.reduceItemAlphaOnSwiping = true
+> ```
+
+---
+
+##### `long_press_to_start_dragging`
+Determines whether the start of the dragging action will be triggered by a long press or by a standard one. True for long press; false for standard press. False by default.
+
+> It can also be set in Kotlin:
+> 
+> ```kotlin
+> mList.longPressToStartDragging = true
 > ```
 
 ---

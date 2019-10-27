@@ -17,7 +17,7 @@ ext {
     siteUrl = 'https://github.com/ernestoyaquello/drag-drop-swipe-recyclerview'
     gitUrl = 'https://github.com/ernestoyaquello/drag-drop-swipe-recyclerview.git'
 
-    libraryVersion = '0.5.0'
+    libraryVersion = '0.5.1'
 
     developerId = 'ernestoyaquello'
     developerName = 'Julio Ernesto Rodríguez Cabañas'

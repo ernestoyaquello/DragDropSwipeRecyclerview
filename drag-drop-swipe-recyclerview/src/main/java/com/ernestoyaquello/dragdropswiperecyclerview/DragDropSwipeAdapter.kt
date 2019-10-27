@@ -15,6 +15,7 @@ import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListene
 import com.ernestoyaquello.dragdropswiperecyclerview.util.DragDropSwipeTouchHelper
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawHorizontalDividers
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawVerticalDividers
+import android.view.GestureDetector
 
 /**
  * Needs to be implemented by any adapter to be used within a DragDropSwipeRecyclerView.
@@ -389,8 +390,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             behindSwipedItemSecondaryLayout = getBehindSwipedItemSecondaryLayout(item, holder, position)
         }
 
-        val viewToDrag = getViewToTouchToStartDraggingItem(item, holder, position) ?: holder.itemView
-        setItemDragAndDrop(viewToDrag, holder)
+        setViewForDragging(item, holder, position)
 
         onBindViewHolder(item, holder, position)
     }
@@ -797,13 +797,35 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         }
     }
 
-    private fun setItemDragAndDrop(view: View, holder: U) =
-            view.setOnTouchListener(getDragAndDropTouchListener(holder))
+    private fun setViewForDragging(item: T, holder: U, position: Int) {
+        val viewToDrag = getViewToTouchToStartDraggingItem(item, holder, position) ?: holder.itemView
+        if (recyclerView?.longPressToStartDragging != true)
+            setItemDragAndDrop(viewToDrag, holder)
+        else
+            setItemDragAndDropWithLongPress(viewToDrag, holder)
+    }
 
-    private fun getDragAndDropTouchListener(holder: U) =
-            View.OnTouchListener { _, event ->
-                if (holder.canBeDragged?.invoke() == true && event?.actionMasked == MotionEvent.ACTION_DOWN)
+    private fun setItemDragAndDrop(viewToDrag: View, holder: U) =
+            viewToDrag.setOnTouchListener { _, event ->
+                if (holder.canBeDragged?.invoke() == true && event?.actionMasked == MotionEvent.ACTION_DOWN) {
                     itemTouchHelper.startDrag(holder)
+                    return@setOnTouchListener true
+                }
                 false
             }
+
+    private fun setItemDragAndDropWithLongPress(viewToDrag: View, holder: U) {
+        val context = holder.itemView.context
+        val longPressGestureListener = object : GestureDetector.SimpleOnGestureListener() {
+            override fun onDown(event: MotionEvent) = !holder.isBeingSwiped && !holder.isBeingDragged
+            override fun onLongPress(e: MotionEvent) = itemTouchHelper.startDrag(holder)
+        }
+        val longPressGestureDetector = GestureDetector(context, longPressGestureListener)
+        longPressGestureDetector.setIsLongpressEnabled(true)
+
+        viewToDrag.setOnTouchListener { _, event ->
+            viewToDrag.onTouchEvent(event) // Pass the event up so current click listeners still work
+            longPressGestureDetector.onTouchEvent(event)
+        }
+    }
 }
