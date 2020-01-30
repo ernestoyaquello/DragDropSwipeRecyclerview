@@ -16,6 +16,7 @@ import com.ernestoyaquello.dragdropswiperecyclerview.util.DragDropSwipeTouchHelp
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawHorizontalDividers
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawVerticalDividers
 import android.view.GestureDetector
+import kotlin.math.abs
 
 /**
  * Needs to be implemented by any adapter to be used within a DragDropSwipeRecyclerView.
@@ -590,9 +591,9 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             if (list.reduceItemAlphaOnSwiping) {
                 val offsetToItemSizeRatio =
                         if (isSwipingHorizontally)
-                            Math.abs(offsetX).toFloat() / (originalLayoutAreaRight - originalLayoutAreaLeft).toFloat()
+                            abs(offsetX).toFloat() / (originalLayoutAreaRight - originalLayoutAreaLeft).toFloat()
                         else
-                            Math.abs(offsetY).toFloat() / (originalLayoutAreaBottom - originalLayoutAreaTop).toFloat()
+                            abs(offsetY).toFloat() / (originalLayoutAreaBottom - originalLayoutAreaTop).toFloat()
                 newItemAlpha = 1.1f - offsetToItemSizeRatio
                 newItemAlpha = if (newItemAlpha < 0.1f) 0.1f else newItemAlpha
                 newItemAlpha = if (newItemAlpha > 1f) 1f else newItemAlpha
