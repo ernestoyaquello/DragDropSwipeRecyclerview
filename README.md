@@ -161,7 +161,7 @@ mList.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH
 > ```
 > 
 > ##### Restricting swiping and dragging directions
-> In case you want to disallow dragging or swiping actions in certain directions, you can do the following:
+> In case you want to disallow dragging or swiping actions in certain directions, you can do the following right after specifying the list orientation:
 > 
 > ```kotlin
 > // This disallows swiping items to the right
