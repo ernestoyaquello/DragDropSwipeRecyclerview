@@ -165,14 +165,14 @@ mList.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH
 > 
 > ```kotlin
 > // This disallows swiping items to the right
-> mList.orientation?.removeSwipeDirectionFlag(ListOrientation.DirectionFlag.RIGHT)
+> mList.disableSwipeDirection(ListOrientation.DirectionFlag.RIGHT)
 > ```
 > 
 > Or:
 > 
 > ```kotlin
 > // This disallows dragging items up
-> mList.orientation?.removeDragDirectionFlag(ListOrientation.DirectionFlag.UP)
+> mList.disableDragDirection(ListOrientation.DirectionFlag.UP)
 > ```
 
 #### Set event listeners

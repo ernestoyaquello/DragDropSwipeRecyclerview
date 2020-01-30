@@ -114,63 +114,6 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
                 return swipeFlagsList
             }
 
-        /**
-         * Removes the specified direction flag from the drag flags.
-         * Please note that the the next time you select the affected value of the enum type,
-         * this change will still be applied to it.
-         *
-         * @param flag The flag to be removed.
-         */
-        fun removeDragDirectionFlag(flag: DirectionFlag) {
-            val newValue = dragFlagsValue xor flag.value
-
-            // To make sure we don't perform this operation twice, which will restore the original flag
-            // value, we only assign the new flag value if it is lower than the previous one.
-            dragFlagsValue = if (newValue < dragFlagsValue) newValue else dragFlagsValue
-        }
-
-        /**
-         * Removes the specified direction flag from the swipe flags.
-         * Please note that the the next time you select the affected value of the enum type,
-         * this change will still be applied to it.
-         *
-         * @param flag The flag to be removed.
-         */
-        fun removeSwipeDirectionFlag(flag: DirectionFlag) {
-            val newValue = swipeFlagsValue xor flag.value
-
-            // To make sure we don't perform this operation twice, which will restore the original flag
-            // value, we only assign the new flag value if it is lower than the previous one.
-            swipeFlagsValue = if (newValue < swipeFlagsValue) newValue else swipeFlagsValue
-        }
-
-        /**
-         * Adds the specified direction flag to the drag flags.
-         * Please note that the the next time you select the affected value of the enum type,
-         * this change will still be applied to it.
-         *
-         * @param flag The flag to be added.
-         */
-        fun addDragDirectionFlag(flag: DirectionFlag) {
-            dragFlagsValue = dragFlagsValue or flag.value
-        }
-
-        /**
-         * Adds the specified direction flag to the swipe flags.
-         * Please note that the the next time you select the affected value of the enum type,
-         * this change will still be applied to it.
-         *
-         * @param flag The flag to be added.
-         */
-        fun addSwipeDirectionFlag(flag: DirectionFlag) {
-            swipeFlagsValue = swipeFlagsValue or flag.value
-        }
-
-        internal fun restoreFlags(dragFlagsValue: Int, swipeFlagsValue: Int) {
-            this.dragFlagsValue = dragFlagsValue
-            this.swipeFlagsValue = swipeFlagsValue
-        }
-
         enum class DirectionFlag(internal val value: Int) {
 
             /**
@@ -514,6 +457,8 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
                     value.setInternalDragListener(dragListener)
                     value.setInternalSwipeListener(swipeListener)
                     value.swipeAndDragHelper.orientation = orientation
+                    value.swipeAndDragHelper.disabledDragFlagsValue = disabledDragFlagsValue
+                    value.swipeAndDragHelper.disabledSwipeFlagsValue = disabledSwipeFlagsValue
 
                     super.setAdapter(value)
                 }
@@ -543,8 +488,32 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
             if (value != field) {
                 field = value
 
+                // Reset disabled flags to allow the directions allowed in the orientation to be used
+                disabledDragFlagsValue = 0
+                disabledSwipeFlagsValue = 0
+
                 // Pass down this value to the adapter, which is where it will be used
                 adapter?.swipeAndDragHelper?.orientation = value
+            }
+        }
+
+    private var disabledDragFlagsValue: Int = 0
+        set(value) {
+            if (value != field) {
+                field = value
+
+                // Pass down this value to the adapter, which is where it will be used
+                adapter?.swipeAndDragHelper?.disabledDragFlagsValue = value
+            }
+        }
+
+    private var disabledSwipeFlagsValue: Int = 0
+        set(value) {
+            if (value != field) {
+                field = value
+
+                // Pass down this value to the adapter, which is where it will be used
+                adapter?.swipeAndDragHelper?.disabledSwipeFlagsValue = value
             }
         }
 
@@ -618,6 +587,60 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Disables the specified direction for all dragging actions on this list.
+     * The disabled direction will be reset back to being allowed if the list orientation changes.
+     *
+     * @param dragDirectionToDisable The drag direction to disable.
+     */
+    fun disableDragDirection(dragDirectionToDisable: ListOrientation.DirectionFlag) {
+        val flagValue = dragDirectionToDisable.value
+        if (orientation?.dragDirectionFlags?.any { it.value and flagValue == flagValue } == true)
+            disabledDragFlagsValue = disabledDragFlagsValue or flagValue
+    }
+
+    /**
+     * Disables the specified direction for all swiping actions on this list.
+     * The disabled direction will be reset back to being allowed if the list orientation changes.
+     *
+     * @param swipeDirectionToDisable The swipe direction to disable.
+     */
+    fun disableSwipeDirection(swipeDirectionToDisable: ListOrientation.DirectionFlag) {
+        val flagValue = swipeDirectionToDisable.value
+        if (orientation?.swipeDirectionFlags?.any { it.value and flagValue == flagValue } == true)
+            disabledSwipeFlagsValue = disabledSwipeFlagsValue or flagValue
+    }
+
+    /**
+     * Allows the specified direction to be used for dragging actions (note that the specified
+     * direction will only trigger a dragging action if the current list orientation allows it).
+     * To be used in order to re-enable a dragging direction that had been previously disabled.
+     *
+     * @param dragDirectionToAllow The drag direction to allow.
+     */
+    fun enableDragDirection(dragDirectionToAllow: ListOrientation.DirectionFlag) {
+        val flagValue = dragDirectionToAllow.value
+        if (orientation?.dragDirectionFlags?.any { it.value and flagValue == flagValue } == true) {
+            val newValue = disabledDragFlagsValue xor flagValue
+            disabledDragFlagsValue = if (newValue < disabledDragFlagsValue) newValue else disabledDragFlagsValue
+        }
+    }
+
+    /**
+     * Allows the specified direction to be used for swiping actions (note that the specified
+     * direction will only trigger a swiping action if the current list orientation allows it).
+     * To be used in order to re-enable a swiping direction that had been previously disabled.
+     *
+     * @param swipeDirectionToAllow The swipe direction to allow.
+     */
+    fun enableSwipeDirection(swipeDirectionToAllow: ListOrientation.DirectionFlag) {
+        val flagValue = swipeDirectionToAllow.value
+        if (orientation?.swipeDirectionFlags?.any { it.value and flagValue == flagValue } == true) {
+            val newValue = disabledSwipeFlagsValue xor flagValue
+            disabledSwipeFlagsValue = if (newValue < disabledSwipeFlagsValue) newValue else disabledSwipeFlagsValue
+        }
+    }
+
     override fun onSaveInstanceState(): Parcelable? {
         val superState = super.onSaveInstanceState()
 
@@ -640,8 +663,8 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
             bundle.putInt(NUM_OF_COLUMNS_PER_ROW_IN_GRID_LIST_KEY, numOfColumnsPerRowInGridList)
             bundle.putInt(NUM_OF_ROWS_PER_COLUMN_IN_GRID_LIST_KEY, numOfRowsPerColumnInGridList)
             bundle.putString(ORIENTATION_NAME_KEY, orientation?.name)
-            bundle.putInt(ORIENTATION_DRAG_FLAGS_KEY, orientation?.dragFlagsValue ?: 0)
-            bundle.putInt(ORIENTATION_SWIPE_FLAGS_KEY, orientation?.swipeFlagsValue ?: 0)
+            bundle.putInt(DISABLED_DRAG_FLAGS_VALUE_KEY, disabledDragFlagsValue)
+            bundle.putInt(DISABLED_SWIPE_FLAGS_VALUE_KEY, disabledSwipeFlagsValue)
 
             return bundle
         }
@@ -669,13 +692,10 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
             numOfColumnsPerRowInGridList = state.getInt(NUM_OF_COLUMNS_PER_ROW_IN_GRID_LIST_KEY, 1)
             numOfRowsPerColumnInGridList = state.getInt(NUM_OF_ROWS_PER_COLUMN_IN_GRID_LIST_KEY, 1)
             val savedOrientationName = state.getString(ORIENTATION_NAME_KEY, null)
-            val savedOrientationDragFlags = state.getInt(ORIENTATION_DRAG_FLAGS_KEY, 0)
-            val savedOrientationSwipeFlags = state.getInt(ORIENTATION_SWIPE_FLAGS_KEY, 0)
-            if (savedOrientationName != null && savedOrientationName.isNotEmpty()) {
-                val auxOrientation = ListOrientation.valueOf(savedOrientationName)
-                auxOrientation.restoreFlags(savedOrientationDragFlags, savedOrientationSwipeFlags)
-                orientation = auxOrientation
-            }
+            if (savedOrientationName != null && savedOrientationName.isNotEmpty())
+                orientation = ListOrientation.valueOf(savedOrientationName)
+            disabledDragFlagsValue = state.getInt(DISABLED_DRAG_FLAGS_VALUE_KEY, 0)
+            disabledSwipeFlagsValue = state.getInt(DISABLED_SWIPE_FLAGS_VALUE_KEY, 0)
         }
 
         super.onRestoreInstanceState(superState)
@@ -698,7 +718,7 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
         const val NUM_OF_COLUMNS_PER_ROW_IN_GRID_LIST_KEY = "num_of_columns_per_row_in_grid_list"
         const val NUM_OF_ROWS_PER_COLUMN_IN_GRID_LIST_KEY = "num_of_rows_per_column_in_grid_list"
         const val ORIENTATION_NAME_KEY = "orientation_name"
-        const val ORIENTATION_DRAG_FLAGS_KEY = "orientation_drag_flags"
-        const val ORIENTATION_SWIPE_FLAGS_KEY = "orientation_swipe_flags"
+        const val DISABLED_DRAG_FLAGS_VALUE_KEY = "disabled_drag_flags_value"
+        const val DISABLED_SWIPE_FLAGS_VALUE_KEY = "disabled_swipe_flags_value"
     }
 }
