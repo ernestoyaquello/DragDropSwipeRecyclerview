@@ -17,7 +17,7 @@ Add the library to your project via Gradle:
 
 ```
 dependencies {
-    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.5.1'
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.6.0'
 }
 ```
 
@@ -165,14 +165,14 @@ mList.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH
 > 
 > ```kotlin
 > // This disallows swiping items to the right
-> mList.orientation?.removeSwipeDirectionFlag(ListOrientation.DirectionFlag.RIGHT)
+> mList.disableSwipeDirection(ListOrientation.DirectionFlag.RIGHT)
 > ```
 > 
 > Or:
 > 
 > ```kotlin
 > // This disallows dragging items up
-> mList.orientation?.removeDragDirectionFlag(ListOrientation.DirectionFlag.UP)
+> mList.disableDragDirection(ListOrientation.DirectionFlag.UP)
 > ```
 
 #### Set event listeners

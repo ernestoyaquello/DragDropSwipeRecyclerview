@@ -71,12 +71,10 @@ internal class DragDropSwipeTouchHelper(
 
     internal var orientation: ListOrientation? = null
     private val mOrientation: ListOrientation
-        get() {
-            val currentOrientation = orientation
-            if (currentOrientation != null)
-                return currentOrientation
-            else throw NullPointerException("The orientation of the DragDropSwipeRecyclerView is not defined.")
-        }
+        get() = orientation ?: throw NullPointerException("The orientation of the DragDropSwipeRecyclerView is not defined.")
+
+    internal var disabledDragFlagsValue: Int = 0
+    internal var disabledSwipeFlagsValue: Int = 0
 
     private var isDragging = false
     private var isSwiping = false
@@ -110,8 +108,8 @@ internal class DragDropSwipeTouchHelper(
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
         if (viewHolder is DragDropSwipeAdapter.ViewHolder) {
             return makeMovementFlags(
-                    if (viewHolder.canBeDragged?.invoke() == true) mOrientation.dragFlagsValue else 0,
-                    if (viewHolder.canBeSwiped?.invoke() == true) mOrientation.swipeFlagsValue else 0)
+                    if (viewHolder.canBeDragged?.invoke() == true) mOrientation.dragFlagsValue xor disabledDragFlagsValue else 0,
+                    if (viewHolder.canBeSwiped?.invoke() == true) mOrientation.swipeFlagsValue xor disabledSwipeFlagsValue else 0)
         }
 
         return 0
