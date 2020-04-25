@@ -68,7 +68,7 @@ In addition, in this example you can also see that the optional attribute `divid
 >         android:id="@+id/drag_icon"
 >         android:layout_width="wrap_content"
 >         android:layout_height="match_parent"
->         android:src="@drawable/ic_drag"/>
+>         android:drawable="@drawable/ic_drag"/>
 > </LinearLayout>
 > ```
 > 
