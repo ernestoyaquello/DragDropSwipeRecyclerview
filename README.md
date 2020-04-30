@@ -1,4 +1,8 @@
 # Drag & Drop n' Swipe Recyclerview
+[![issues](https://img.shields.io/github/issues/ernestoyaquello/DragDropSwipeRecyclerview?style=for-the-badge)](https://github.com/ernestoyaquello/DragDropSwipeRecyclerview/issues)
+[![pull requests](https://img.shields.io/github/issues-pr/ernestoyaquello/DragDropSwipeRecyclerview?style=for-the-badge)](https://github.com/ernestoyaquello/DragDropSwipeRecyclerview/pulls)
+[![contributors](https://img.shields.io/github/contributors/ernestoyaquello/DragDropSwipeRecyclerview?style=for-the-badge)](https://github.com/ernestoyaquello/DragDropSwipeRecyclerview/graphs/contributors)
+
 Highly customizable Android library written in Kotlin that uses AndroidX and extends `RecyclerView` to include extra features, such as support for *drag & drop* and *swipe* gestures, among others. It works with vertical, horizontal and grid lists.
 
 ## Demo
