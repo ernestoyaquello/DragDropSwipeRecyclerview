@@ -80,7 +80,7 @@ internal class DragDropSwipeTouchHelper(
     private var isSwiping = false
     private var initialItemPositionForOngoingDraggingEvent = -1
 
-    override fun isLongPressDragEnabled() = false
+    override fun isLongPressDragEnabled() = recyclerView?.longPressToStartDragging == true
 
     override fun isItemViewSwipeEnabled() = true
 

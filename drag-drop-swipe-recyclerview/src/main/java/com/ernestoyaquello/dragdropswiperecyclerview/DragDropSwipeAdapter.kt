@@ -1,5 +1,6 @@
 package com.ernestoyaquello.dragdropswiperecyclerview
 
+import android.annotation.SuppressLint
 import android.graphics.Canvas
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -15,7 +16,6 @@ import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListene
 import com.ernestoyaquello.dragdropswiperecyclerview.util.DragDropSwipeTouchHelper
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawHorizontalDividers
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawVerticalDividers
-import android.view.GestureDetector
 import kotlin.math.abs
 
 /**
@@ -800,12 +800,10 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
 
     private fun setViewForDragging(item: T, holder: U, position: Int) {
         val viewToDrag = getViewToTouchToStartDraggingItem(item, holder, position) ?: holder.itemView
-        if (recyclerView?.longPressToStartDragging != true)
-            setItemDragAndDrop(viewToDrag, holder)
-        else
-            setItemDragAndDropWithLongPress(viewToDrag, holder)
+        setItemDragAndDrop(viewToDrag, holder)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setItemDragAndDrop(viewToDrag: View, holder: U) =
             viewToDrag.setOnTouchListener { _, event ->
                 if (holder.canBeDragged?.invoke() == true && event?.actionMasked == MotionEvent.ACTION_DOWN) {
@@ -814,19 +812,4 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
                 }
                 false
             }
-
-    private fun setItemDragAndDropWithLongPress(viewToDrag: View, holder: U) {
-        val context = holder.itemView.context
-        val longPressGestureListener = object : GestureDetector.SimpleOnGestureListener() {
-            override fun onDown(event: MotionEvent) = !holder.isBeingSwiped && !holder.isBeingDragged
-            override fun onLongPress(e: MotionEvent) = itemTouchHelper.startDrag(holder)
-        }
-        val longPressGestureDetector = GestureDetector(context, longPressGestureListener)
-        longPressGestureDetector.setIsLongpressEnabled(true)
-
-        viewToDrag.setOnTouchListener { _, event ->
-            viewToDrag.onTouchEvent(event) // Pass the event up so current click listeners still work
-            longPressGestureDetector.onTouchEvent(event)
-        }
-    }
 }
