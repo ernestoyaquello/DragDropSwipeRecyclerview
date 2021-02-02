@@ -17,7 +17,7 @@ ext {
     siteUrl = 'https://github.com/ernestoyaquello/drag-drop-swipe-recyclerview'
     gitUrl = 'https://github.com/ernestoyaquello/drag-drop-swipe-recyclerview.git'
 
-    libraryVersion = '0.6.0'
+    libraryVersion = '1.0.0'
 
     developerId = 'ernestoyaquello'
     developerName = 'Julio Ernesto Rodríguez Cabañas'
@@ -34,7 +34,7 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 14
+        versionCode 15
         versionName libraryVersion
     }
 
