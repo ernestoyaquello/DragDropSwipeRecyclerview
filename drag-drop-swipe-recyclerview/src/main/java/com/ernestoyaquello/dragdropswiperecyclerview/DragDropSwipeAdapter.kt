@@ -2,21 +2,20 @@ package com.ernestoyaquello.dragdropswiperecyclerview
 
 import android.graphics.Canvas
 import android.graphics.Color
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView.ListOrientation.DirectionFlag
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
+import com.ernestoyaquello.dragdropswiperecyclerview.util.DragDropSwipeDiffCallback
 import com.ernestoyaquello.dragdropswiperecyclerview.util.DragDropSwipeTouchHelper
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawHorizontalDividers
 import com.ernestoyaquello.dragdropswiperecyclerview.util.drawVerticalDividers
-import android.view.GestureDetector
 import kotlin.math.abs
+
 
 /**
  * Needs to be implemented by any adapter to be used within a DragDropSwipeRecyclerView.
@@ -35,8 +34,14 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     var dataSet: List<T>
         get() = mutableDataSet
         set(value) {
+            val diffUtil = createDiffUtil(mutableDataSet, value)
             mutableDataSet = value.toMutableList()
-            notifyDataSetChanged()
+            if (diffUtil != null) {
+                val diffResult = DiffUtil.calculateDiff(diffUtil)
+                diffResult.dispatchUpdatesTo(this)
+            } else {
+                notifyDataSetChanged()
+            }
         }
 
     private val orientation: DragDropSwipeRecyclerView.ListOrientation
@@ -89,6 +94,18 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
      *         of the item that will be used for dragging is the main one.
      */
     protected abstract fun getViewToTouchToStartDraggingItem(item: T, viewHolder: U, position: Int): View?
+
+    /**
+     * Called automatically to get the DragDropSwipeDiffCallback<T> implementation that will be used
+     * to compare items when the data set is updated.
+     * If it returns null, no difference between the old items and the new ones will be calculated.
+     * Null by default.
+     *
+     * @param oldList The old list of items.
+     * @param newList The new list of items.
+     * @return The implementation of DragDropSwipeDiffCallback<T> that will be used to compare items, if any.
+     */
+    protected open fun createDiffUtil(oldList: List<T>, newList: List<T>) : DragDropSwipeDiffCallback<T>? = null
 
     /**
      * Called automatically to know if the specified item can be dragged.
