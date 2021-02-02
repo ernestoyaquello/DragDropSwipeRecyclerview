@@ -1,10 +1,14 @@
 package com.ernestoyaquello.dragdropswiperecyclerviewsample.feature.managelists.view
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewbinding.ViewBinding
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.R
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.config.local.currentListFragmentConfig
+import com.ernestoyaquello.dragdropswiperecyclerviewsample.databinding.FragmentGridListBinding
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.feature.managelists.view.base.BaseListFragment
 
 /**
@@ -14,8 +18,11 @@ class GridListFragment : BaseListFragment() {
 
     private val numberOfColumns = 2
 
-    override val fragmentLayoutId = R.layout.fragment_grid_list
     override val optionsMenuId = R.menu.fragment_grid_list_options
+
+    override fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): ViewBinding {
+        return FragmentGridListBinding.inflate(inflater, container, false)
+    }
 
     override fun setupListLayoutManager(list: DragDropSwipeRecyclerView) {
         // Set grid linear layout manager

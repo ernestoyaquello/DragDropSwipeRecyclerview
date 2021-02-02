@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.*
-import android.widget.FrameLayout
 import android.widget.ProgressBar
+import androidx.viewbinding.ViewBinding
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
@@ -32,11 +32,12 @@ abstract class BaseListFragment : Fragment() {
     private val adapter = IceCreamListAdapter()
     private val repository = IceCreamRepository.getInstance()
 
-    private lateinit var rootView: ViewGroup
+    private var _binding: ViewBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var list: DragDropSwipeRecyclerView
     private lateinit var loadingIndicator: ProgressBar
 
-    protected abstract val fragmentLayoutId: Int
     protected abstract val optionsMenuId: Int
 
     private val onItemSwipeListener = object : OnItemSwipeListener<IceCream> {
@@ -108,9 +109,9 @@ abstract class BaseListFragment : Fragment() {
             savedInstanceState: Bundle?): View? {
 
         // Set root view for the fragment and find the views
-        rootView = inflater.inflate(fragmentLayoutId, container, false) as FrameLayout
-        list = rootView.findViewById(R.id.list)
-        loadingIndicator = rootView.findViewById(R.id.loading_indicator)
+        _binding = inflateViewBinding(inflater,container)
+        list = binding.root.findViewById(R.id.list)
+        loadingIndicator = binding.root.findViewById(R.id.loading_indicator)
 
         // Set adapter and listeners
         list.adapter = adapter
@@ -125,8 +126,15 @@ abstract class BaseListFragment : Fragment() {
         setupLayoutBehindItemLayoutOnSwiping(list)
         setupFadeItemLayoutOnSwiping(list)
 
-        return rootView
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    protected abstract fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): ViewBinding
 
     protected abstract fun setupListLayoutManager(list: DragDropSwipeRecyclerView)
 
@@ -289,7 +297,7 @@ abstract class BaseListFragment : Fragment() {
     private fun removeItemFromList(item: IceCream, position: Int, stringResourceId: Int) {
         repository.removeItem(item)
 
-        val itemSwipedSnackBar = Snackbar.make(rootView, getString(stringResourceId, item), Snackbar.LENGTH_SHORT)
+        val itemSwipedSnackBar = Snackbar.make(binding.root, getString(stringResourceId, item), Snackbar.LENGTH_SHORT)
         itemSwipedSnackBar.setAction(getString(R.string.undoCaps)) {
             Logger.log("UNDO: $item has been added back to the list in the position $position")
 
