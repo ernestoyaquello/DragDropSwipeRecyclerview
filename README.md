@@ -223,6 +223,15 @@ mList.scrollListener = onListScrollListener
 
 **And that's it**! Your list with support for *swipe* and *drag & drop* should be fully working now.
 
+## Updating the items
+### Without implementing `DiffUtil`
+The simplest way to update the items of your list is by setting the new list of items in the property `dataSet` of the adapter. This setter will take care of notifying the recyclerview about the changes, so all you need to do is set it.
+
+On the other hand, in case you want to apply small updates to the collection of items instead of replacing it entirely at once, please take a look at the convenience methods that the adapter offers, such as `addItem()`, `inserItem()`, `removeItem()`, and `moveItem()`. These methods will take care of notifying the recyclerview about the specific changes that have been applied to the data set, which will result in the correct animations being run.
+
+### Implementing `DiffUtil`
+In case you want to use `DiffUtil` to be able to replace the entire list of items while ensuring that the the correct animations are always run, please extend the class `DragDropSwipeDiffCallback`. Then, override the method `createDiffUtil()` of the adapter and make it return an instance of your implementation.
+
 ## Customization
 ### DragDropSwipeRecyclerView customization
 There are several `XML` attributes that you can set in the `DragDropSwipeRecyclerView` in order to customize the style of the list and its items:
