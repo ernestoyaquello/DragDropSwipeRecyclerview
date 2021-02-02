@@ -19,7 +19,7 @@
         android:paddingBottom="@dimen/spacing_normal"
         android:layout_gravity="right|center_vertical">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:id="@+id/drag_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

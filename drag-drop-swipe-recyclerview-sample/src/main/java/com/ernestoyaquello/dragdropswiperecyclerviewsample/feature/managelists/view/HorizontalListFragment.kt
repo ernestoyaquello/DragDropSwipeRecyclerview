@@ -1,11 +1,15 @@
 package com.ernestoyaquello.dragdropswiperecyclerviewsample.feature.managelists.view
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.R
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.config.local.currentListFragmentConfig
+import com.ernestoyaquello.dragdropswiperecyclerviewsample.databinding.FragmentHorizontalListBinding
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.feature.managelists.view.base.BaseListFragment
 
 /**
@@ -13,8 +17,11 @@ import com.ernestoyaquello.dragdropswiperecyclerviewsample.feature.managelists.v
  */
 class HorizontalListFragment : BaseListFragment() {
 
-    override val fragmentLayoutId = R.layout.fragment_horizontal_list
     override val optionsMenuId = R.menu.fragment_horizontal_list_options
+
+    override fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): ViewBinding {
+        return FragmentHorizontalListBinding.inflate(inflater, container, false)
+    }
 
     override fun setupListLayoutManager(list: DragDropSwipeRecyclerView) {
         // Set horizontal linear layout manager

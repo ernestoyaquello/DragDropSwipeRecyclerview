@@ -29,7 +29,7 @@
             android:layout_margin="0dp"
             android:padding="0dp">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/ice_cream_photo"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
@@ -78,7 +78,7 @@
                 android:paddingBottom="@dimen/spacing_small"
                 tools:text="$2.85"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/drag_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
