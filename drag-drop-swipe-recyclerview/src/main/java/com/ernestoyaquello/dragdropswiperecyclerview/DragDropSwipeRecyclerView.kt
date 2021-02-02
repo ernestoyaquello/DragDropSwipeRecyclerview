@@ -572,8 +572,8 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
 
                 is LinearLayoutManager -> orientation =
                         when (layoutManager.orientation) {
-                            LinearLayoutManager.VERTICAL -> ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
-                            LinearLayoutManager.HORIZONTAL -> ListOrientation.HORIZONTAL_LIST_WITH_UNCONSTRAINED_DRAGGING
+                            VERTICAL -> ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
+                            HORIZONTAL -> ListOrientation.HORIZONTAL_LIST_WITH_UNCONSTRAINED_DRAGGING
                             else -> orientation
                 }
 

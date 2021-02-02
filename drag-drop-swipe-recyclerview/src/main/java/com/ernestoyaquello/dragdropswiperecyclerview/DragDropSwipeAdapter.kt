@@ -1,5 +1,6 @@
 package com.ernestoyaquello.dragdropswiperecyclerview
 
+import android.annotation.SuppressLint
 import android.graphics.Canvas
 import android.graphics.Color
 import android.view.*
@@ -823,6 +824,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             setItemDragAndDropWithLongPress(viewToDrag, holder)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setItemDragAndDrop(viewToDrag: View, holder: U) =
             viewToDrag.setOnTouchListener { _, event ->
                 if (holder.canBeDragged?.invoke() == true && event?.actionMasked == MotionEvent.ACTION_DOWN) {
@@ -832,6 +834,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
                 false
             }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setItemDragAndDropWithLongPress(viewToDrag: View, holder: U) {
         val context = holder.itemView.context
         val longPressGestureListener = object : GestureDetector.SimpleOnGestureListener() {
