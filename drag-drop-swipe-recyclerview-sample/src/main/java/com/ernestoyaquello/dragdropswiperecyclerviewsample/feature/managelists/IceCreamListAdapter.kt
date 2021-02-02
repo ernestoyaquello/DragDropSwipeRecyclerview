@@ -4,8 +4,8 @@ import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import androidx.core.widget.ImageViewCompat
-import androidx.appcompat.widget.AppCompatImageView
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.R
@@ -21,8 +21,8 @@ class IceCreamListAdapter(dataSet: List<IceCream> = emptyList())
     class ViewHolder(iceCreamLayout: View) : DragDropSwipeAdapter.ViewHolder(iceCreamLayout) {
         val iceCreamNameView: TextView = itemView.findViewById(R.id.ice_cream_name)
         val iceCreamPriceView: TextView = itemView.findViewById(R.id.ice_cream_price)
-        val dragIcon: AppCompatImageView = itemView.findViewById(R.id.drag_icon)
-        val iceCreamIcon: AppCompatImageView? = itemView.findViewById(R.id.ice_cream_icon)
+        val dragIcon: ImageView = itemView.findViewById(R.id.drag_icon)
+        val iceCreamIcon: ImageView? = itemView.findViewById(R.id.ice_cream_icon)
         val iceCreamPhotoFilter: View? = itemView.findViewById(R.id.ice_cream_photo_filter)
     }
 
