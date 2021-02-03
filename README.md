@@ -19,9 +19,20 @@ The creation (and maintenance) of this library requires time and effort. If you 
 ### 1. Reference the library
 Add the library to your project via Gradle:
 
+1. Make sure you reference Jitpack in the root `build.gradle` file:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+2. Then, in the app's `build.gradle` file, reference the library:
 ```
 dependencies {
-    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.0.0'
+    ...
+    implementation 'com.github.ernestoyaquello:DragDropSwipeRecyclerview:1.0.0'
 }
 ```
 
