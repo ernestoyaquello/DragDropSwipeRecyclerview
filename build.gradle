@@ -1,19 +1,20 @@
 buildscript {
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.22.0"
     }
 }
 
 allprojects {
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
 }
@@ -21,3 +22,5 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+apply plugin: 'io.codearte.nexus-staging'
