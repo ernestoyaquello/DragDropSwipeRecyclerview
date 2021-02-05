@@ -17,32 +17,12 @@ The creation (and maintenance) of this library requires time and effort. If you 
 
 ## How to use it
 ### 1. Reference the library
-Add the library to your project. You can do this via JCenter or via Jitpack.
+Add the library to your project via `mavenCentral` by adding the following in the app's `build.gradle` file:
 
-#### Option 1: JCenter
-In the app's `build.gradle` file, reference the library:
 ```
 dependencies {
     ...
-    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.0.0'
-}
-```
-
-#### Option 2: Jitpack
-1. Make sure you reference Jitpack in the root `build.gradle` file:
-```
-allprojects {
-    repositories {
-        ...
-        maven { url "https://jitpack.io" }
-    }
-}
-```
-2. Then, in the app's `build.gradle` file, reference the library:
-```
-dependencies {
-    ...
-    implementation 'com.github.ernestoyaquello:DragDropSwipeRecyclerview:1.0.0'
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.0.1'
 }
 ```
 
