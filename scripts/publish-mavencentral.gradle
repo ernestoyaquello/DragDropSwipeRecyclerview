@@ -67,7 +67,7 @@ publishing {
                 developers {
                     developer {
                         id = 'ernestoyaquello'
-                        name = 'Juulio Ernesto Rodríguez Cabañas'
+                        name = 'Julio Ernesto Rodríguez Cabañas'
                         email = 'julioernesto90@gmail.com'
                     }
                 }
