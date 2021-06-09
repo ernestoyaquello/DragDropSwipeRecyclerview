@@ -1,13 +1,13 @@
 buildscript {
     repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
         google()
         mavenCentral()
-        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
-        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.22.0"
+        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
     }
 }
 
@@ -15,7 +15,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
 }
 
@@ -23,4 +22,6 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-apply plugin: 'io.codearte.nexus-staging'
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+
+apply from: "${rootDir}/scripts/publish-root.gradle"
