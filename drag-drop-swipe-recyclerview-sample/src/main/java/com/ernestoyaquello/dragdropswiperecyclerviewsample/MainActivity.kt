@@ -18,7 +18,7 @@ import com.ernestoyaquello.dragdropswiperecyclerviewsample.feature.managelists.v
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.feature.managelists.view.base.BaseListFragment
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.feature.managelog.view.LogFragment
 import com.ernestoyaquello.dragdropswiperecyclerviewsample.util.Logger
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 /**
  * Main Activity of the app. Handles the navigation to the list sample screens and to the log screen.
@@ -27,11 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        if (tryNavigateToListFragment(item.itemId))
-            return@OnNavigationItemSelectedListener true
-
-        false
+    private val onBottomItemSelectedListener = NavigationBarView.OnItemSelectedListener { item ->
+        tryNavigateToListFragment(item.itemId)
     }
 
     private val onLogButtonClickedListener = View.OnClickListener {
@@ -75,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigation() {
-        binding.navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        binding.navigation.setOnItemSelectedListener(onBottomItemSelectedListener)
     }
 
     private fun setupFab() {

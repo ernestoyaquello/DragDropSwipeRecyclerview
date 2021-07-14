@@ -119,7 +119,7 @@ internal class DragDropSwipeTouchHelper(
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder): Boolean {
-        itemDragListener.onItemDragged(viewHolder.adapterPosition, target.adapterPosition)
+        itemDragListener.onItemDragged(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
 
         return true
     }
@@ -131,7 +131,7 @@ internal class DragDropSwipeTouchHelper(
             (target as? DragDropSwipeAdapter.ViewHolder)?.canBeDroppedOver?.invoke() == true
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        val position = viewHolder.adapterPosition
+        val position = viewHolder.bindingAdapterPosition
         val swipeDirection =
                 when (direction) {
                     ItemTouchHelper.LEFT -> SwipeDirection.RIGHT_TO_LEFT
@@ -219,7 +219,7 @@ internal class DragDropSwipeTouchHelper(
 
     private fun onStartedDragging(viewHolder: RecyclerView.ViewHolder) {
         isDragging = true
-        initialItemPositionForOngoingDraggingEvent = viewHolder.adapterPosition
+        initialItemPositionForOngoingDraggingEvent = viewHolder.bindingAdapterPosition
         itemStateChangeListener.onStateChanged(
                 OnItemStateChangeListener.StateChangeType.DRAG_STARTED, viewHolder)
     }
@@ -241,7 +241,7 @@ internal class DragDropSwipeTouchHelper(
     private fun onFinishedDragging(viewHolder: RecyclerView.ViewHolder) {
         // At this point, the user has dropped the item
         val initialItemPositionForFinishedDraggingEvent = initialItemPositionForOngoingDraggingEvent
-        val finalItemPositionForFinishedDraggingEvent = viewHolder.adapterPosition
+        val finalItemPositionForFinishedDraggingEvent = viewHolder.bindingAdapterPosition
         isDragging = false
         initialItemPositionForOngoingDraggingEvent = -1
         itemDragListener.onItemDropped(initialItemPositionForFinishedDraggingEvent, finalItemPositionForFinishedDraggingEvent)

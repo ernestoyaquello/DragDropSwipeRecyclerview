@@ -2,6 +2,7 @@ package com.ernestoyaquello.dragdropswiperecyclerviewsample.feature.managelists.
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.*
 import android.widget.ProgressBar
@@ -248,7 +249,7 @@ abstract class BaseListFragment : Fragment() {
         loadData()
 
         // Hide loader view after a small delay to simulate real data retrieval
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             loadingIndicator.visibility = View.GONE
             list.visibility = View.VISIBLE
         }, 150)

@@ -381,7 +381,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             // Setting these lambdas here instead of only once inside onCreateViewHolder() to make
             // sure they get set even if onCreateViewHolder() is overridden by the user
             canBeDragged = holder.canBeDragged ?: {
-                val viewHolderPosition = holder.adapterPosition
+                val viewHolderPosition = holder.bindingAdapterPosition
                 if (viewHolderPosition != NO_POSITION) {
                     val viewHolderItem = mutableDataSet[viewHolderPosition]
                     canBeDragged(viewHolderItem, holder, viewHolderPosition)
@@ -389,7 +389,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
                 else false
             }
             canBeDroppedOver = holder.canBeDroppedOver ?: {
-                val viewHolderPosition = holder.adapterPosition
+                val viewHolderPosition = holder.bindingAdapterPosition
                 if (viewHolderPosition != NO_POSITION) {
                     val viewHolderItem = mutableDataSet[viewHolderPosition]
                     canBeDroppedOver(viewHolderItem, holder, viewHolderPosition)
@@ -397,7 +397,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
                 else false
             }
             canBeSwiped = holder.canBeSwiped ?: {
-                val viewHolderPosition = holder.adapterPosition
+                val viewHolderPosition = holder.bindingAdapterPosition
                 if (viewHolderPosition != NO_POSITION) {
                     val viewHolderItem = mutableDataSet[viewHolderPosition]
                     canBeSwiped(viewHolderItem, holder, viewHolderPosition)
@@ -479,10 +479,10 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     private fun onDragStartedImpl(viewHolder: U) {
         viewHolder.isBeingDragged = true
 
-        if (viewHolder.adapterPosition == NO_POSITION)
+        if (viewHolder.bindingAdapterPosition == NO_POSITION)
             return
 
-        val item = dataSet[viewHolder.adapterPosition]
+        val item = dataSet[viewHolder.bindingAdapterPosition]
 
         onDragStarted(item, viewHolder)
     }
@@ -490,10 +490,10 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     private fun onSwipeStartedImpl(viewHolder: U) {
         viewHolder.isBeingSwiped = true
 
-        if (viewHolder.adapterPosition == NO_POSITION)
+        if (viewHolder.bindingAdapterPosition == NO_POSITION)
             return
 
-        val item = dataSet[viewHolder.adapterPosition]
+        val item = dataSet[viewHolder.bindingAdapterPosition]
 
         onSwipeStarted(item, viewHolder)
     }
@@ -501,10 +501,10 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
     private fun onDragFinishedImpl(viewHolder: U) {
         viewHolder.isBeingDragged = false
 
-        if (viewHolder.adapterPosition == NO_POSITION)
+        if (viewHolder.bindingAdapterPosition == NO_POSITION)
             return
 
-        val item = dataSet[viewHolder.adapterPosition]
+        val item = dataSet[viewHolder.bindingAdapterPosition]
 
         onDragFinished(item, viewHolder)
     }
@@ -557,7 +557,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             canvasOver: Canvas?,
             isUserControlled: Boolean) {
 
-        val currentAdapterPosition = viewHolder.adapterPosition
+        val currentAdapterPosition = viewHolder.bindingAdapterPosition
         val item = if (currentAdapterPosition != NO_POSITION) dataSet[currentAdapterPosition] else null
 
         drawOnSwiping(offsetX, offsetY, viewHolder, canvasUnder, canvasOver)
@@ -572,7 +572,7 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
             canvasOver: Canvas?,
             isUserControlled: Boolean) {
 
-        val currentAdapterPosition = viewHolder.adapterPosition
+        val currentAdapterPosition = viewHolder.bindingAdapterPosition
         val item = if (currentAdapterPosition != NO_POSITION) dataSet[currentAdapterPosition] else null
 
         drawOnDragging(canvasOver, viewHolder)
