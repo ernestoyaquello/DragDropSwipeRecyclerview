@@ -32,9 +32,6 @@ jobs:
       - name: Release build
         run: ./gradlew :drag-drop-swipe-recyclerview:assembleRelease
 
-      - name: Get artifact
-        run: ./gradlew androidSourcesJar
-
       - name: Publish to MavenCentral
         run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository
         env:
