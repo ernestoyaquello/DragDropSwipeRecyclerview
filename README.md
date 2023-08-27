@@ -22,7 +22,7 @@ Add the library to your project via `mavenCentral` by adding the following in th
 ```
 dependencies {
     ...
-    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.1.1'
+    implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.2.0'
 }
 ```
 
