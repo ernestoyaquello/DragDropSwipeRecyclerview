@@ -38,6 +38,8 @@ internal class DragDropSwipeItemDecoration(var divider: Drawable) : RecyclerView
                             drawHorizontalDividers(child, c, divider)
                             drawVerticalDividers(child, c, divider)
                         }
+
+                        null -> {}
                     }
             }
         } else throw TypeCastException("The recycler view must be an extension of DragDropSwipeRecyclerView.")
@@ -67,6 +69,8 @@ internal class DragDropSwipeItemDecoration(var divider: Drawable) : RecyclerView
                         if (position >= parent.numOfRowsPerColumnInGridList)
                             outRect.left = divider.intrinsicWidth
                     }
+
+                    null -> {}
                 }
             }
         } else throw TypeCastException("The recycler view must be an extension of DragDropSwipeRecyclerView.")

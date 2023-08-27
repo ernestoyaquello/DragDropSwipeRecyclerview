@@ -3,6 +3,8 @@ package com.ernestoyaquello.dragdropswiperecyclerview
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Parcelable
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.GridLayoutManager
@@ -676,7 +678,10 @@ open class DragDropSwipeRecyclerView @JvmOverloads constructor(
         var superState = state
 
         if (isSaveEnabled && state is Bundle) {
-            superState = state.getParcelable(SUPER_STATE_KEY)
+            superState = when {
+                SDK_INT >= Build.VERSION_CODES.TIRAMISU -> state.getParcelable(SUPER_STATE_KEY, Parcelable::class.java)
+                else -> @Suppress("DEPRECATION") state.getParcelable(SUPER_STATE_KEY)
+            }
             itemLayoutId = state.getInt(ITEM_LAYOUT_ID_KEY, 0)
             dividerDrawableId = state.getInt(DIVIDER_DRAWABLE_ID_KEY, 0)
             behindSwipedItemIconDrawableId = state.getInt(BEHIND_SWIPED_ITEM_ICON_DRAWABLE_ID_KEY, 0)
